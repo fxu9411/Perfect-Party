@@ -109,10 +109,10 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'NAME': '[YOUR-DATABASE]',
-            'USER': '[YOUR-USERNAME]',
-            'PASSWORD': '[YOUR-PASSWORD]',
+            'PORT': '3308',
+            'NAME': 'library',
+            'USER': 'admin',
+            'PASSWORD': 'password',
         }
     }
 # [END db_setup]
