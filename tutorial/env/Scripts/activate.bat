@@ -1,6 +1,6 @@
 @echo off
 
-set "VIRTUAL_ENV=C:\Users\frank\AppData\Local\Google\CLOUDS~1\test\env"
+set "VIRTUAL_ENV=C:\Users\frank\AppData\Local\Google\Cloud SDK\Perfect-Party-CS-348-Project\tutorial\env"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"

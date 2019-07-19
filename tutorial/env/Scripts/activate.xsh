@@ -28,7 +28,7 @@ def _deactivate(args):
 _deactivate(["nondestructive"])
 aliases["deactivate"] = _deactivate
 
-$VIRTUAL_ENV = r"C:\Users\frank\AppData\Local\Google\CLOUDS~1\test\env"
+$VIRTUAL_ENV = r"C:\Users\frank\AppData\Local\Google\Cloud SDK\Perfect-Party-CS-348-Project\tutorial\env"
 
 $_OLD_VIRTUAL_PATH = $PATH
 $PATH = $PATH[:]
