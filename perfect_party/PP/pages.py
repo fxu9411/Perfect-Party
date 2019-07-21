@@ -5,7 +5,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 
-import sqlalchemy as db
+import pymysql
 
 pages = Blueprint('pages', __name__)
 
@@ -35,19 +35,28 @@ def venues():
 
 @pages.route("/getVenue")
 def get_venues():
-    venue_list = {"data":[{"VenueName": 'One',
-                           "Address": 'One Victoria Street South',
-                           "City":'Kitchener',
-                           "Country":'Canada',
-                           "Price":1000,
-                           "PostalCode": 'N2G0B5'},
-                          {"VenueName": 'Two',
-                           "Address": 'Two Victoria Street South',
-                           "City": 'Kitchener',
-                           "Country": 'Canada',
-                           "Price": 1200,
-                           "PostalCode": 'N2G0X5'}
-                          ]}
+    connection = pymysql.connect(host='127.0.0.1',
+                                 user='admin',
+                                 password='password',
+                                 db='perfect_party',
+                                 charset='utf8mb4',
+                                 cursorclass=pymysql.cursors.DictCursor)
+    with connection.cursor() as cursor:
+        # Read a single record
+        sql = "SELECT * FROM `venue`"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+    venue_list = {}
+    list_of_venue = []
+    for item in result:
+        obj = {'VenueName': item['venue_name'],
+               'Address': item['street_number'] + ' ' + item['street_name'],
+               'City': item['city'], 'Country': item['country'], 'PostalCode': item['postal_code'],
+               'Price': item['price']}
+        list_of_venue.append(obj)
+
+    venue_list['data'] = list_of_venue
     return jsonify(venue_list)
 
 
