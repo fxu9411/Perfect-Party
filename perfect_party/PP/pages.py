@@ -9,6 +9,13 @@ import pymysql
 
 pages = Blueprint('pages', __name__)
 
+connection = pymysql.connect(host='127.0.0.1',
+                             user='admin',
+                             password='password',
+                             db='perfect_party',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
+
 # [START list]
 @pages.route("/booking")
 def main_page():
@@ -35,12 +42,6 @@ def venues():
 
 @pages.route("/getVenue")
 def get_venues():
-    connection = pymysql.connect(host='127.0.0.1',
-                                 user='admin',
-                                 password='password',
-                                 db='perfect_party',
-                                 charset='utf8mb4',
-                                 cursorclass=pymysql.cursors.DictCursor)
     with connection.cursor() as cursor:
         sql = "SELECT * FROM `venue`"
         cursor.execute(sql)
