@@ -125,7 +125,7 @@ def add_venue():
     name = request.form['name']
     str_name = request.form['str-name']
     str_number = request.form['str-number']
-    unit_number = request.form['unit']
+    unit_number = request.form['unit'] if 'unit' in request.form else 'NULL'
     city = request.form['city']
     province = request.form['province']
     country = request.form['country']
@@ -161,6 +161,26 @@ def get_client():
 
     client_list['data'] = list_of_client
     return jsonify(client_list)
+
+@pages.route('/addClient', methods=['POST'])
+def add_client():
+    print(request.form)
+    name = request.form['name']
+    str_name = request.form['str-name']
+    str_number = request.form['str-number']
+    unit_number = request.form['unit'] if 'unit' in request.form else 'NULL'
+    city = request.form['city']
+    province = request.form['province']
+    country = request.form['country']
+    postal = request.form['postal']
+
+    with connection.cursor() as cursor:
+        # Create a new record
+        sql = "INSERT INTO `client`(client_name, street_number, street_name, unit_number, city, province, country, postal_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        cursor.execute(sql, (name, str_number, str_name, unit_number, city, province, country, postal))
+    connection.commit()
+
+    return redirect(url_for('pages.client'))
 
 @pages.route("/supplier")
 def supplier():
