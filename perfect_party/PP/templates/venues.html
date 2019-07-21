@@ -149,14 +149,15 @@
         <hr>
         <div class="row"></div>
         <div class="container-fluid">
-            <table id="example" class="display" style="width:100%">
+            <table id="venue" class="display" style="width:100%">
                 <thead>
                 <tr>
                     <th>Venue Name</th>
+                    <th>Price</th>
                     <th>Address</th>
                     <th>City</th>
                     <th>Country</th>
-                    <th>Price</th>
+                    <th>Postal Code</th>
                 </tr>
                 </thead>
             </table>
@@ -740,20 +741,22 @@ $("#show-sidebar").click(function() {
 <!--datatable script-->
 <script>
 $(document).ready(function() {
-    $('#example').DataTable( {
+    $('#venue').DataTable( {
         "processing": true,
         "ajax": {url: "/PerfectParty/getVenue",dataType:"json", dataSrc: "data", "contentType":"application/json"},
         "columns": [
             {data: "VenueName"},
+            {data: "Price"},
             {data: "Address"},
             {data: "City"},
             {data: "Country"},
-            {data: "Price"},
-        ]
+            {data: "PostalCode"}
+        ],
     } );
-    var table = $('#example').DataTable();
+    $("#venue").css('cursor', 'pointer');
+    var table = $('#venue').DataTable();
 
-    $('#example tbody').on( 'click', 'tr', function () {
+    $('#venue tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
         }
