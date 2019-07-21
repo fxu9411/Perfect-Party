@@ -110,13 +110,35 @@ def get_venues():
     for item in result:
         obj = {'VenueName': item['venue_name'],
                'Address': item['street_number'] + ' ' + item['street_name'],
-               'City': item['city'], 'Country': item['country'], 'PostalCode': item['postal_code'],
+               'City': item['city'],
+               'Country': item['country'],
+               'PostalCode': item['postal_code'],
                'Price': float(item['price'])}
         list_of_venue.append(obj)
     # cursor.close()
     venue_list['data'] = list_of_venue
     return jsonify(venue_list)
 
+@pages.route('/addVenue', methods=['POST'])
+def add_venue():
+    print(request.form)
+    name = request.form['name']
+    str_name = request.form['str-name']
+    str_number = request.form['str-number']
+    unit_number = request.form['unit']
+    city = request.form['city']
+    province = request.form['province']
+    country = request.form['country']
+    postal = request.form['postal']
+    price = request.form['price']
+
+    with connection.cursor() as cursor:
+        # Create a new record
+        sql = "INSERT INTO `venue`(venue_name, street_number, street_name, unit_number, city, province, country, postal_code, price) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        cursor.execute(sql, (name, str_number, str_name, unit_number, city, province, country, postal, price))
+    connection.commit()
+
+    return redirect(url_for('pages.venues'))
 
 @pages.route("/client")
 def client():
