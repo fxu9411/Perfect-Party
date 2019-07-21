@@ -5,6 +5,8 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 
+import sqlalchemy as db
+
 pages = Blueprint('pages', __name__)
 
 # [START list]

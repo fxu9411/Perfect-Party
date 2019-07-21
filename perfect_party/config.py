@@ -39,11 +39,11 @@ PROJECT_ID = 'cs-348'
 # instance.
 CLOUDSQL_USER = 'admin'
 CLOUDSQL_PASSWORD = 'password'
-CLOUDSQL_DATABASE = 'bookshelf'
+CLOUDSQL_DATABASE = 'perfect_party'
 # Set this value to the Cloud SQL connection name, e.g.
 #   "project:region:cloudsql-instance".
 # You must also update the value in app.yaml.
-CLOUDSQL_CONNECTION_NAME = 'cs-348:us-central1:library'
+CLOUDSQL_CONNECTION_NAME = 'cs-348:us-east1:perfectparty'
 
 # The CloudSQL proxy is used locally to connect to the cloudsql instance.
 # To start the proxy, use:
@@ -55,7 +55,7 @@ CLOUDSQL_CONNECTION_NAME = 'cs-348:us-central1:library'
 
 # Alternatively, you could use a local MySQL instance for testing.
 LOCAL_SQLALCHEMY_DATABASE_URI = (
-    'mysql+pymysql://{user}:{password}@127.0.0.1:3308/{database}').format(
+    'mysql+pymysql://{user}:{password}@127.0.0.1:3306/{database}').format(
         user=CLOUDSQL_USER, password=CLOUDSQL_PASSWORD,
         database=CLOUDSQL_DATABASE)
 
