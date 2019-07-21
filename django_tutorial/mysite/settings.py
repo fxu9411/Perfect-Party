@@ -92,10 +92,10 @@ if os.getenv('GAE_APPLICATION', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/[YOUR-CONNECTION-NAME]',
-            'USER': '[YOUR-USERNAME]',
-            'PASSWORD': '[YOUR-PASSWORD]',
-            'NAME': '[YOUR-DATABASE]',
+            'HOST': '/cloudsql/cs-348:us-east1:perfectparty',
+            'USER': 'admin  ',
+            'PASSWORD': 'password',
+            'NAME': 'perfectparty',
         }
     }
 else:
@@ -109,10 +109,10 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'NAME': '[YOUR-DATABASE]',
-            'USER': '[YOUR-USERNAME]',
-            'PASSWORD': '[YOUR-PASSWORD]',
+            'PORT': '3308',
+            'NAME': 'library',
+            'USER': 'admin',
+            'PASSWORD': 'password',
         }
     }
 # [END db_setup]

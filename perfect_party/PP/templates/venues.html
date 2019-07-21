@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Perfect Party</title>
+
+
+    <!-- Jquery-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+    <!-- bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="page-wrapper chiller-theme toggled">
+
+    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+        <i class="fas fa-bars"></i>
+    </a>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <a href="#">perfect party</a>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-info">
+          <span class="user-name">Jhon
+            <strong>Smith</strong>
+          </span>
+                    <span class="user-role">Administrator</span>
+                    <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+                </div>
+            </div>
+            <!-- sidebar-header  -->
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <li>
+                        <a href="booking">
+                            <i class="fa fa-tachometer-alt"></i>
+                            <span>Booking</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="client">
+                            <i class="fa fa-globe"></i>
+                            <span>Client</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="venue">
+                            <i class="fa fa-shopping-cart" style="color:#16c7ff"></i>
+                            <span style="color:#16c7ff">Venue</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="far fa-gem"></i>
+                            <span>Item</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="item/food">Food</a>
+                                </li>
+                                <li>
+                                    <a href="item/decor">Decor</a>
+                                </li>
+                                <li>
+                                    <a href="item/entertainment">Entertainment</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="supplier">
+                            <i class="fa fa-chart-line"></i>
+                            <span>Supplier</span>
+                        </a>
+                    </li>
+                    <li class="header-menu">
+                        <span>Other</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-book"></i>
+                            <span>Documentation</span>
+                            <span class="badge badge-pill badge-primary">Beta</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="myaccount">
+                            <i class="fa fa-calendar"></i>
+                            <span>My Account</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#exampleModalCenter">
+                            <i class="fa fa-calendar"></i>
+                            <span>Log Out</span>
+                        </a>
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                            Logging Out
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">No</button>
+                                        <button type="button" class="btn btn-primary" style="padding:5px 20px;" onclick="window.location.href='/PerfectParty'">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+        <h2>Venue</h2>
+        <hr>
+        <div class="row"></div>
+        <div class="container-fluid">
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                <tr>
+                    <th>Venue Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Tiger</td>
+                    <td>Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>$320,800</td>
+                </tr>
+                <tr>
+                    <td>Garrett</td>
+                    <td>Winters</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>$170,750</td>
+                </tr>
+                <tr>
+                    <td>Ashton</td>
+                    <td>Cox</td>
+                    <td>Junior Technical Author</td>
+                    <td>San Francisco</td>
+                    <td>$86,000</td>
+                </tr>
+                <tr>
+                    <td>Cedric</td>
+                    <td>Kelly</td>
+                    <td>Senior Javascript Developer</td>
+                    <td>Edinburgh</td>
+                    <td>$433,060</td>
+                </tr>
+                <tr>
+                    <td>Airi</td>
+                    <td>Satou</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>$162,700</td>
+                </tr>
+                <tr>
+                    <td>Brielle</td>
+                    <td>Williamson</td>
+                    <td>Integration Specialist</td>
+                    <td>New York</td>
+                    <td>$372,000</td>
+                </tr>
+                <tr>
+                    <td>Herrod</td>
+                    <td>Chandler</td>
+                    <td>Sales Assistant</td>
+                    <td>San Francisco</td>
+                    <td>$137,500</td>
+                </tr>
+                <tr>
+                    <td>Rhona</td>
+                    <td>Davidson</td>
+                    <td>Integration Specialist</td>
+                    <td>Tokyo</td>
+                    <td>$327,900</td>
+                </tr>
+                <tr>
+                    <td>Colleen</td>
+                    <td>Hurst</td>
+                    <td>Javascript Developer</td>
+                    <td>San Francisco</td>
+                    <td>$205,500</td>
+                </tr>
+                <tr>
+                    <td>Sonya</td>
+                    <td>Frost</td>
+                    <td>Software Engineer</td>
+                    <td>Edinburgh</td>
+                    <td>$103,600</td>
+                </tr>
+                <tr>
+                    <td>Jena</td>
+                    <td>Gaines</td>
+                    <td>Office Manager</td>
+                    <td>London</td>
+                    <td>$90,560</td>
+                </tr>
+                <tr>
+                    <td>Quinn</td>
+                    <td>Flynn</td>
+                    <td>Support Lead</td>
+                    <td>Edinburgh</td>
+                    <td>$342,000</td>
+                </tr>
+                <tr>
+                    <td>Charde</td>
+                    <td>Marshall</td>
+                    <td>Regional Director</td>
+                    <td>San Francisco</td>
+                    <td>$470,600</td>
+                </tr>
+                <tr>
+                    <td>Haley</td>
+                    <td>Kennedy</td>
+                    <td>Senior Marketing Designer</td>
+                    <td>London</td>
+                    <td>$313,500</td>
+                </tr>
+                <tr>
+                    <td>Tatyana</td>
+                    <td>Fitzpatrick</td>
+                    <td>Regional Director</td>
+                    <td>London</td>
+                    <td>$385,750</td>
+                </tr>
+                <tr>
+                    <td>Michael</td>
+                    <td>Silva</td>
+                    <td>Marketing Designer</td>
+                    <td>London</td>
+                    <td>$198,500</td>
+                </tr>
+                <tr>
+                    <td>Paul</td>
+                    <td>Byrd</td>
+                    <td>Chief Financial Officer (CFO)</td>
+                    <td>New York</td>
+                    <td>$725,000</td>
+                </tr>
+                <tr>
+                    <td>Gloria</td>
+                    <td>Little</td>
+                    <td>Systems Administrator</td>
+                    <td>New York</td>
+                    <td>$237,500</td>
+                </tr>
+                <tr>
+                    <td>Bradley</td>
+                    <td>Greer</td>
+                    <td>Software Engineer</td>
+                    <td>London</td>
+                    <td>$132,000</td>
+                </tr>
+                <tr>
+                    <td>Dai</td>
+                    <td>Rios</td>
+                    <td>Personnel Lead</td>
+                    <td>Edinburgh</td>
+                    <td>$217,500</td>
+                </tr>
+                <tr>
+                    <td>Jenette</td>
+                    <td>Caldwell</td>
+                    <td>Development Lead</td>
+                    <td>New York</td>
+                    <td>$345,000</td>
+                </tr>
+                <tr>
+                    <td>Yuri</td>
+                    <td>Berry</td>
+                    <td>Chief Marketing Officer (CMO)</td>
+                    <td>New York</td>
+                    <td>$675,000</td>
+                </tr>
+                <tr>
+                    <td>Caesar</td>
+                    <td>Vance</td>
+                    <td>Pre-Sales Support</td>
+                    <td>New York</td>
+                    <td>$106,450</td>
+                </tr>
+                <tr>
+                    <td>Doris</td>
+                    <td>Wilder</td>
+                    <td>Sales Assistant</td>
+                    <td>Sidney</td>
+                    <td>$85,600</td>
+                </tr>
+                <tr>
+                    <td>Angelica</td>
+                    <td>Ramos</td>
+                    <td>Chief Executive Officer (CEO)</td>
+                    <td>London</td>
+                    <td>$1,200,000</td>
+                </tr>
+                <tr>
+                    <td>Gavin</td>
+                    <td>Joyce</td>
+                    <td>Developer</td>
+                    <td>Edinburgh</td>
+                    <td>$92,575</td>
+                </tr>
+                <tr>
+                    <td>Jennifer</td>
+                    <td>Chang</td>
+                    <td>Regional Director</td>
+                    <td>Singapore</td>
+                    <td>$357,650</td>
+                </tr>
+                <tr>
+                    <td>Brenden</td>
+                    <td>Wagner</td>
+                    <td>Software Engineer</td>
+                    <td>San Francisco</td>
+                    <td>$206,850</td>
+                </tr>
+                <tr>
+                    <td>Fiona</td>
+                    <td>Green</td>
+                    <td>Chief Operating Officer (COO)</td>
+                    <td>San Francisco</td>
+                    <td>$850,000</td>
+                </tr>
+                <tr>
+                    <td>Shou</td>
+                    <td>Itou</td>
+                    <td>Regional Marketing</td>
+                    <td>Tokyo</td>
+                    <td>$163,000</td>
+                </tr>
+                <tr>
+                    <td>Michelle</td>
+                    <td>House</td>
+                    <td>Integration Specialist</td>
+                    <td>Sidney</td>
+                    <td>$95,400</td>
+                </tr>
+                <tr>
+                    <td>Suki</td>
+                    <td>Burks</td>
+                    <td>Developer</td>
+                    <td>London</td>
+                    <td>$114,500</td>
+                </tr>
+                <tr>
+                    <td>Prescott</td>
+                    <td>Bartlett</td>
+                    <td>Technical Author</td>
+                    <td>London</td>
+                    <td>$145,000</td>
+                </tr>
+                <tr>
+                    <td>Gavin</td>
+                    <td>Cortez</td>
+                    <td>Team Leader</td>
+                    <td>San Francisco</td>
+                    <td>$235,500</td>
+                </tr>
+                <tr>
+                    <td>Martena</td>
+                    <td>Mccray</td>
+                    <td>Post-Sales support</td>
+                    <td>Edinburgh</td>
+                    <td>$324,050</td>
+                </tr>
+                <tr>
+                    <td>Unity</td>
+                    <td>Butler</td>
+                    <td>Marketing Designer</td>
+                    <td>San Francisco</td>
+                    <td>$85,675</td>
+                </tr>
+                <tr>
+                    <td>Howard</td>
+                    <td>Hatfield</td>
+                    <td>Office Manager</td>
+                    <td>San Francisco</td>
+                    <td>$164,500</td>
+                </tr>
+                <tr>
+                    <td>Hope</td>
+                    <td>Fuentes</td>
+                    <td>Secretary</td>
+                    <td>San Francisco</td>
+                    <td>$109,850</td>
+                </tr>
+                <tr>
+                    <td>Vivian</td>
+                    <td>Harrell</td>
+                    <td>Financial Controller</td>
+                    <td>San Francisco</td>
+                    <td>$452,500</td>
+                </tr>
+                <tr>
+                    <td>Timothy</td>
+                    <td>Mooney</td>
+                    <td>Office Manager</td>
+                    <td>London</td>
+                    <td>$136,200</td>
+                </tr>
+                <tr>
+                    <td>Jackson</td>
+                    <td>Bradshaw</td>
+                    <td>Director</td>
+                    <td>New York</td>
+                    <td>$645,750</td>
+                </tr>
+                <tr>
+                    <td>Olivia</td>
+                    <td>Liang</td>
+                    <td>Support Engineer</td>
+                    <td>Singapore</td>
+                    <td>$234,500</td>
+                </tr>
+                <tr>
+                    <td>Bruno</td>
+                    <td>Nash</td>
+                    <td>Software Engineer</td>
+                    <td>London</td>
+                    <td>$163,500</td>
+                </tr>
+                <tr>
+                    <td>Sakura</td>
+                    <td>Yamamoto</td>
+                    <td>Support Engineer</td>
+                    <td>Tokyo</td>
+                    <td>$139,575</td>
+                </tr>
+                <tr>
+                    <td>Thor</td>
+                    <td>Walton</td>
+                    <td>Developer</td>
+                    <td>New York</td>
+                    <td>$98,540</td>
+                </tr>
+                <tr>
+                    <td>Finn</td>
+                    <td>Camacho</td>
+                    <td>Support Engineer</td>
+                    <td>San Francisco</td>
+                    <td>$87,500</td>
+                </tr>
+                <tr>
+                    <td>Serge</td>
+                    <td>Baldwin</td>
+                    <td>Data Coordinator</td>
+                    <td>Singapore</td>
+                    <td>$138,575</td>
+                </tr>
+                <tr>
+                    <td>Zenaida</td>
+                    <td>Frank</td>
+                    <td>Software Engineer</td>
+                    <td>New York</td>
+                    <td>$125,250</td>
+                </tr>
+                <tr>
+                    <td>Zorita</td>
+                    <td>Serrano</td>
+                    <td>Software Engineer</td>
+                    <td>San Francisco</td>
+                    <td>$115,000</td>
+                </tr>
+                <tr>
+                    <td>Jennifer</td>
+                    <td>Acosta</td>
+                    <td>Junior Javascript Developer</td>
+                    <td>Edinburgh</td>
+                    <td>$75,650</td>
+                </tr>
+                <tr>
+                    <td>Cara</td>
+                    <td>Stevens</td>
+                    <td>Sales Assistant</td>
+                    <td>New York</td>
+                    <td>$145,600</td>
+                </tr>
+                <tr>
+                    <td>Hermione</td>
+                    <td>Butler</td>
+                    <td>Regional Director</td>
+                    <td>London</td>
+                    <td>$356,250</td>
+                </tr>
+                <tr>
+                    <td>Lael</td>
+                    <td>Greer</td>
+                    <td>Systems Administrator</td>
+                    <td>London</td>
+                    <td>$103,500</td>
+                </tr>
+                <tr>
+                    <td>Jonas</td>
+                    <td>Alexander</td>
+                    <td>Developer</td>
+                    <td>San Francisco</td>
+                    <td>$86,500</td>
+                </tr>
+                <tr>
+                    <td>Shad</td>
+                    <td>Decker</td>
+                    <td>Regional Director</td>
+                    <td>Edinburgh</td>
+                    <td>$183,000</td>
+                </tr>
+                <tr>
+                    <td>Michael</td>
+                    <td>Bruce</td>
+                    <td>Javascript Developer</td>
+                    <td>Singapore</td>
+                    <td>$183,000</td>
+                </tr>
+                <tr>
+                    <td>Donna</td>
+                    <td>Snider</td>
+                    <td>Customer Support</td>
+                    <td>New York</td>
+                    <td>$112,000</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+    <!-- page-content" -->
+</div>
+<!-- page-wrapper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<!-- datatable -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" ref="stylesheet">
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>
+
+<!--navbar css-->
+<style>
+    .modal-backdrop {
+    /* bug fix - no overlay */
+    display: none;
+}
+  @keyframes swing {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(10deg);
+  }
+  30% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  70% {
+    transform: rotate(0deg);
+  }
+  80% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes sonar {
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+body {
+  font-size: 0.9rem;
+}
+.page-wrapper .sidebar-wrapper,
+.sidebar-wrapper .sidebar-brand > a,
+.sidebar-wrapper .sidebar-dropdown > a:after,
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before,
+.sidebar-wrapper ul li a i,
+.page-wrapper .page-content,
+.sidebar-wrapper .sidebar-search input.search-menu,
+.sidebar-wrapper .sidebar-search .input-group-text,
+.sidebar-wrapper .sidebar-menu ul li a,
+#show-sidebar,
+#close-sidebar {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+/*----------------page-wrapper----------------*/
+
+.page-wrapper {
+  height: 100vh;
+}
+
+.page-wrapper .theme {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 4px;
+  margin: 2px;
+}
+
+.page-wrapper .theme.chiller-theme {
+  background: #1e2229;
+}
+
+/*----------------toggeled sidebar----------------*/
+
+.page-wrapper.toggled .sidebar-wrapper {
+  left: 0px;
+}
+
+@media screen and (min-width: 768px) {
+  .page-wrapper.toggled .page-content {
+    padding-left: 300px;
+  }
+}
+/*----------------show sidebar button----------------*/
+#show-sidebar {
+  position: fixed;
+  left: 0;
+  top: 10px;
+  border-radius: 0 4px 4px 0px;
+  width: 35px;
+  transition-delay: 0.3s;
+}
+.page-wrapper.toggled #show-sidebar {
+  left: -40px;
+}
+/*----------------sidebar-wrapper----------------*/
+
+.sidebar-wrapper {
+  width: 260px;
+  height: 100%;
+  max-height: 100%;
+  position: fixed;
+  top: 0;
+  left: -300px;
+  z-index: 999;
+}
+
+.sidebar-wrapper ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-wrapper a {
+  text-decoration: none;
+}
+
+/*----------------sidebar-content----------------*/
+
+.sidebar-content {
+  max-height: calc(100% - 30px);
+  height: calc(100% - 30px);
+  overflow-y: auto;
+  position: relative;
+}
+
+.sidebar-content.desktop {
+  overflow-y: hidden;
+}
+
+/*--------------------sidebar-brand----------------------*/
+
+.sidebar-wrapper .sidebar-brand {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-wrapper .sidebar-brand > a {
+  text-transform: uppercase;
+  font-weight: bold;
+  flex-grow: 1;
+}
+
+.sidebar-wrapper .sidebar-brand #close-sidebar {
+  cursor: pointer;
+  font-size: 20px;
+}
+/*--------------------sidebar-header----------------------*/
+
+.sidebar-wrapper .sidebar-header {
+  padding: 20px;
+  overflow: hidden;
+}
+
+.sidebar-wrapper .sidebar-header .user-pic {
+  float: left;
+  width: 60px;
+  padding: 2px;
+  border-radius: 12px;
+  margin-right: 15px;
+  overflow: hidden;
+}
+
+.sidebar-wrapper .sidebar-header .user-pic img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.sidebar-wrapper .sidebar-header .user-info {
+  float: left;
+}
+
+.sidebar-wrapper .sidebar-header .user-info > span {
+  display: block;
+}
+
+.sidebar-wrapper .sidebar-header .user-info .user-role {
+  font-size: 12px;
+}
+
+.sidebar-wrapper .sidebar-header .user-info .user-status {
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.sidebar-wrapper .sidebar-header .user-info .user-status i {
+  font-size: 8px;
+  margin-right: 4px;
+  color: #5cb85c;
+}
+
+/*-----------------------sidebar-search------------------------*/
+
+.sidebar-wrapper .sidebar-search > div {
+  padding: 10px 20px;
+}
+
+/*----------------------sidebar-menu-------------------------*/
+
+.sidebar-wrapper .sidebar-menu {
+  padding-bottom: 10px;
+}
+
+.sidebar-wrapper .sidebar-menu .header-menu span {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 15px 20px 5px 20px;
+  display: inline-block;
+}
+
+.sidebar-wrapper .sidebar-menu ul li a {
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  position: relative;
+  padding: 8px 30px 8px 20px;
+}
+
+.sidebar-wrapper .sidebar-menu ul li a i {
+  margin-right: 10px;
+  font-size: 12px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.sidebar-wrapper .sidebar-menu ul li a:hover > i::before {
+  display: inline-block;
+  animation: swing ease-in-out 0.5s 1 alternate;
+}
+
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown > a:after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f105";
+  font-style: normal;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background: 0 0;
+  position: absolute;
+  right: 15px;
+  top: 14px;
+}
+
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu ul {
+  padding: 5px 0;
+}
+
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li {
+  padding-left: 25px;
+  font-size: 13px;
+}
+
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {
+  content: "\f111";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  font-style: normal;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 10px;
+  font-size: 8px;
+}
+
+.sidebar-wrapper .sidebar-menu ul li a span.label,
+.sidebar-wrapper .sidebar-menu ul li a span.badge {
+  float: right;
+  margin-top: 8px;
+  margin-left: 5px;
+}
+
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .badge,
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .label {
+  float: right;
+  margin-top: 0px;
+}
+
+.sidebar-wrapper .sidebar-menu .sidebar-submenu {
+  display: none;
+}
+
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown.active > a:after {
+  transform: rotate(90deg);
+  right: 17px;
+}
+
+/*--------------------------side-footer------------------------------*/
+
+.sidebar-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+}
+
+.sidebar-footer > a {
+  flex-grow: 1;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  position: relative;
+}
+
+.sidebar-footer > a .notification {
+  position: absolute;
+  top: 0;
+}
+
+.badge-sonar {
+  display: inline-block;
+  background: #980303;
+  border-radius: 50%;
+  height: 8px;
+  width: 8px;
+  position: absolute;
+  top: 0;
+}
+
+.badge-sonar:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 2px solid #980303;
+  opacity: 0;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  animation: sonar 1.5s infinite;
+}
+
+/*--------------------------page-content-----------------------------*/
+
+.page-wrapper .page-content {
+  display: inline-block;
+  width: 100%;
+  padding-left: 0px;
+  padding-top: 20px;
+}
+
+.page-wrapper .page-content > div {
+}
+
+.page-wrapper .page-content {
+  overflow-x: hidden;
+}
+
+.page-wrapper .page-content .container img.wide {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+}
+.page-wrapper .page-content .container img.tall {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+}​
+
+/*------scroll bar---------------------*/
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 7px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #525965;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #525965;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #525965;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: transparent;
+}
+::-webkit-scrollbar-track:active {
+  background: transparent;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+/*-----------------------------chiller-theme-------------------------------------------------*/
+
+.chiller-theme .sidebar-wrapper {
+    background: #31353D;
+}
+
+.chiller-theme .sidebar-wrapper .sidebar-header,
+.chiller-theme .sidebar-wrapper .sidebar-search,
+.chiller-theme .sidebar-wrapper .sidebar-menu {
+    border-top: 1px solid #3a3f48;
+}
+
+.chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
+.chiller-theme .sidebar-wrapper .sidebar-search .input-group-text {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.chiller-theme .sidebar-wrapper .sidebar-header .user-info .user-role,
+.chiller-theme .sidebar-wrapper .sidebar-header .user-info .user-status,
+.chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
+.chiller-theme .sidebar-wrapper .sidebar-search .input-group-text,
+.chiller-theme .sidebar-wrapper .sidebar-brand>a,
+.chiller-theme .sidebar-wrapper .sidebar-menu ul li a,
+.chiller-theme .sidebar-footer>a {
+    color: #818896;
+}
+
+.chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover>a,
+.chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active>a,
+.chiller-theme .sidebar-wrapper .sidebar-header .user-info,
+.chiller-theme .sidebar-wrapper .sidebar-brand>a:hover,
+.chiller-theme .sidebar-footer>a:hover i {
+    color: #b8bfce;
+}
+
+.page-wrapper.chiller-theme.toggled #close-sidebar {
+    color: #bdbdbd;
+}
+
+.page-wrapper.chiller-theme.toggled #close-sidebar:hover {
+    color: #ffffff;
+}
+
+.chiller-theme .sidebar-wrapper ul li:hover a i,
+.chiller-theme .sidebar-wrapper .sidebar-dropdown .sidebar-submenu li a:hover:before,
+.chiller-theme .sidebar-wrapper .sidebar-search input.search-menu:focus+span,
+.chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active a i {
+    color: #16c7ff;
+    text-shadow:0px 0px 10px rgba(22, 199, 255, 0.5);
+}
+
+.chiller-theme .sidebar-wrapper .sidebar-menu ul li a i,
+.chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown div,
+.chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
+.chiller-theme .sidebar-wrapper .sidebar-search .input-group-text {
+    background: #3a3f48;
+}
+
+.chiller-theme .sidebar-wrapper .sidebar-menu .header-menu span {
+    color: #6c7b88;
+}
+
+.chiller-theme .sidebar-footer {
+    background: #3a3f48;
+    box-shadow: 0px -1px 5px #282c33;
+    border-top: 1px solid #464a52;
+}
+
+.chiller-theme .sidebar-footer>a:first-child {
+    border-left: none;
+}
+
+.chiller-theme .sidebar-footer>a:last-child {
+    border-right: none;
+}
+
+
+
+
+
+
+
+</style>
+
+<!--navbar script-->
+<script>
+    jQuery(function ($) {
+
+    $(".sidebar-dropdown > a").click(function() {
+  $(".sidebar-submenu").slideUp(200);
+  if (
+    $(this)
+      .parent()
+      .hasClass("active")
+  ) {
+    $(".sidebar-dropdown").removeClass("active");
+    $(this)
+      .parent()
+      .removeClass("active");
+  } else {
+    $(".sidebar-dropdown").removeClass("active");
+    $(this)
+      .next(".sidebar-submenu")
+      .slideDown(200);
+    $(this)
+      .parent()
+      .addClass("active");
+  }
+});
+
+$("#close-sidebar").click(function() {
+  $(".page-wrapper").removeClass("toggled");
+});
+$("#show-sidebar").click(function() {
+  $(".page-wrapper").addClass("toggled");
+});
+
+
+
+
+});
+
+
+
+
+
+
+</script>
+
+<!--datatable script-->
+<script>
+  $(document).ready(function() {
+    $('#example').DataTable( {
+        columnDefs: [ {
+            targets: [ 0 ],
+            orderData: [ 0, 1 ]
+        }, {
+            targets: [ 1 ],
+            orderData: [ 1, 0 ]
+        }, {
+            targets: [ 4 ],
+            orderData: [ 4, 0 ]
+        } ]
+    } );
+} );
+
+
+
+
+
+
+</script>

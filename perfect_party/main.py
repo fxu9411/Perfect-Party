@@ -1,8 +1,8 @@
-import bookshelf
+import PP
 import config
 
 
-app = bookshelf.create_app(config)
+app = PP.create_app(config)
 
 
 # This is only used when running locally. When running live, gunicorn runs
