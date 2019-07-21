@@ -42,7 +42,6 @@ def get_venues():
                                  charset='utf8mb4',
                                  cursorclass=pymysql.cursors.DictCursor)
     with connection.cursor() as cursor:
-        # Read a single record
         sql = "SELECT * FROM `venue`"
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -53,7 +52,7 @@ def get_venues():
         obj = {'VenueName': item['venue_name'],
                'Address': item['street_number'] + ' ' + item['street_name'],
                'City': item['city'], 'Country': item['country'], 'PostalCode': item['postal_code'],
-               'Price': item['price']}
+               'Price': float(item['price'])}
         list_of_venue.append(obj)
 
     venue_list['data'] = list_of_venue
