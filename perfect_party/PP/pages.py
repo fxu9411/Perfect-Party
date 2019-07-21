@@ -66,17 +66,34 @@ def client():
 
 @pages.route("/getClient")
 def get_client():
-    client_list = {"data":[{"ClientName": 'Frank Xu',
-                           "Address": 'One Victoria Street South',
-                           "City":'Kitchener',
-                           "Country":'Canada',
-                           "PostalCode": 'N2G0B5'},
-                          {"ClientName": 'Weixuan Xu',
-                           "Address": 'Two Victoria Street South',
-                           "City": 'Kitchener',
-                           "Country": 'Canada',
-                           "PostalCode": 'N2G0X5'}
-                          ]}
+
+    with connection.cursor() as cursor:
+        sql = "SELECT * FROM `client`"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+    client_list = {}
+    list_of_client = []
+    for item in result:
+        obj = {'ClientName': item['client_name'],
+               'Address': item['street_number'] + ' ' + item['street_name'],
+               'City': item['city'], 'Country': item['country'], 'PostalCode': item['postal_code']}
+        list_of_client.append(obj)
+
+    client_list['data'] = list_of_client
+
+
+    # client_list = {"data":[{"ClientName": 'Frank Xu',
+    #                        "Address": 'One Victoria Street South',
+    #                        "City":'Kitchener',
+    #                        "Country":'Canada',
+    #                        "PostalCode": 'N2G0B5'},
+    #                       {"ClientName": 'Weixuan Xu',
+    #                        "Address": 'Two Victoria Street South',
+    #                        "City": 'Kitchener',
+    #                        "Country": 'Canada',
+    #                        "PostalCode": 'N2G0X5'}
+    #                       ]}
     return jsonify(client_list)
 
 @pages.route("/supplier")
