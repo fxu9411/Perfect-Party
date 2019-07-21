@@ -1,3 +1,7 @@
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
 
 venv/bin/activate
 venv/bin/activate.csh
@@ -334,3 +338,8 @@ venv/pyvenv.cfg
 .idea/vcs.xml
 .idea/workspace.xml
 .DS_Store
+<<<<<<< HEAD
+perfect_party/PP/__pycache__/pages.cpython-37.pyc
+=======
+
+>>>>>>> 4dbe44f455e80a6402ccf41a079e264b793d0788

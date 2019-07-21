@@ -580,8 +580,7 @@
 
 <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" ref="stylesheet">
 <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 
 </body>
@@ -1135,18 +1134,21 @@ $("#show-sidebar").click(function() {
 
 <!--datatable script-->
 <script>
-  $(document).ready(function() {
-    $('#example').DataTable( {
-        columnDefs: [ {
-            targets: [ 0 ],
-            orderData: [ 0, 1 ]
-        }, {
-            targets: [ 1 ],
-            orderData: [ 1, 0 ]
-        }, {
-            targets: [ 4 ],
-            orderData: [ 4, 0 ]
-        } ]
+$(document).ready(function() {
+    var table = $('#example').DataTable();
+
+    $('#example tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+
+    $('#button').click( function () {
+        table.row('.selected').remove().draw( false );
     } );
 } );
 

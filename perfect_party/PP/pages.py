@@ -1,4 +1,5 @@
 
+from flask import jsonify
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
@@ -23,8 +24,13 @@ def main_page():
 
 @pages.route("/venue")
 def venues():
-    token = request.args.get('page_token',None)
     return render_template("venues.html")
+
+@pages.route("/getVenue")
+def get_venues():
+    venue_list = {"data":[{"VenueName": 'One', "Address": 'One Victoria Street South', "City":'Kitchener', "Country":'Canada',"Price":1000}]}
+    return jsonify(venue_list)
+
 
 @pages.route("/client")
 def client():
