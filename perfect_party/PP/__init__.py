@@ -48,6 +48,9 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
     from .pages import pages
     app.register_blueprint(pages, url_prefix='/PerfectParty')
 
+    from .auth import auth
+    app.register_blueprint(auth, url_prefix='/PerfectParty')
+
 
 
     # Add a default root route.

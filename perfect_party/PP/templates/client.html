@@ -109,10 +109,30 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="#" data-toggle="modal" data-target="#exampleModalCenter">
                             <i class="fa fa-calendar"></i>
                             <span>Log Out</span>
                         </a>
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                            Logging Out
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">No</button>
+                                        <button type="button" class="btn btn-primary" style="padding:5px 20px;" onclick="window.location.href='/PerfectParty'">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -122,14 +142,14 @@
     </nav>
   <!-- sidebar-wrapper  -->
   <main class="page-content">
-    <h2>Venues</h2>
+    <h2>Client</h2>
     <hr>
     <div class = "row"></div>
     <div class="container-fluid">
       <table id="example" class="display" style="width:100%">
         <thead>
             <tr>
-                <th>Venue Name</th>
+                <th>Client Name</th>
                 <th>Address</th>
                 <th>City</th>
                 <th>Country</th>
@@ -563,6 +583,10 @@
 
 <!--navbar css-->
 <style>
+    .modal-backdrop {
+    /* bug fix - no overlay */
+    display: none;
+}
   @keyframes swing {
   0% {
     transform: rotate(0deg);
@@ -1053,6 +1077,11 @@ body {
 .chiller-theme .sidebar-footer>a:last-child {
     border-right: none;
 }
+
+
+
+
+
 
 
 </style>
