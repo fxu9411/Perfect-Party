@@ -97,7 +97,7 @@ def get_venues():
                'City': item['city'], 'Country': item['country'], 'PostalCode': item['postal_code'],
                'Price': float(item['price'])}
         list_of_venue.append(obj)
-
+    cursor.close()
     venue_list['data'] = list_of_venue
     return jsonify(venue_list)
 
