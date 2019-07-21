@@ -1,5 +1,5 @@
 
-from flask import jsonify
+from flask import jsonify,json
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
@@ -8,8 +8,12 @@ from flask import (
 pages = Blueprint('pages', __name__)
 
 # [START list]
-@pages.route("/booking")
+@pages.route("/booking", methods=['POST','GET'])
 def main_page():
+    if request.method == 'POST':
+        args = json.loads(request.values.get("args"))
+        booking_id = int(args['Id'])
+        return redirect(url_for('pages.one_book',Id=args['Id']))
     return render_template(
         "booking.html")
 
@@ -25,6 +29,35 @@ def get_booking():
                            "SalesRep": 'SP2'},
                           ]}
     return jsonify(booking_list)
+
+@pages.route("/onebook", methods=['POST','GET'])
+def one_book():
+    if request.method == 'POST':
+        args = json.loads(request.values.get("args"))
+        booking_id = int(args['Id'])
+        print(booking_id)
+        return jsonify({'data': args['Id']})
+    else:
+        return render_template('onebook.html')
+
+
+@pages.route("/postBooking", methods=['POST'])
+def get_id():
+
+    args = json.loads(request.values.get("args"))
+    client_list = {"data": [{"ClientName": 'Frank Xu',
+                             "Address": 'One Victoria Street South',
+                             "City": 'Kitchener',
+                             "Country": 'Canada',
+                             "PostalCode": 'N2G0B5'},
+                            {"ClientName": 'Weixuan Xu',
+                             "Address": 'Two Victoria Street South',
+                             "City": 'Kitchener',
+                             "Country": 'Canada',
+                             "PostalCode": 'N2G0X5'}
+                            ]}
+    booking_id = int(args['Id'])
+    return jsonify(client_list)
 
 
 @pages.route("/venue")

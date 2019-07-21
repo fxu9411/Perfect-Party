@@ -150,24 +150,13 @@
     </nav>
     <!-- sidebar-wrapper  -->
     <main class="page-content" >
-        <h2 class="display-4">Booking</h2>
+        <h2 class="display-4"> {{Id}} </h2>
         <hr>
         <div class="row"></div>
         <div class="container-fluid">
-            <table id="example" class="display" style="width:100%">
-                <thead>
-                <tr>
-                    <th>Booking Id</th>
-                    <th>Client Name</th>
-                    <th>Booking Date</th>
-                    <th>Sales Rep</th>
-                </tr>
-                </thead>
-            </table>
             <hr>
             <button type="button" class="btn btn-info">+ New Booking</button>
         </div>
-
     </main>
     <!-- page-content" -->
 </div>
@@ -744,40 +733,16 @@ $("#show-sidebar").click(function() {
 <!--datatable script-->
 <script>
 $(document).ready(function() {
-    $('#example').DataTable ({
-        "processing": true,
-        "ajax": {url: "/PerfectParty/getBooking",type:"GET", dataSrc: "data", "contentType":"application/json"},
-        "columns": [
-            {data: "Id"},
-            {data: "ClientName"},
-            {data: "Date"},
-            {data: "SalesRep"},
-        ],
-    } );
-    $("#example").css('cursor', 'pointer');
-
-    var table = $('#example').DataTable();
-
-    $('#example tbody').on( 'dblclick', 'tr', function () {
-        var row = table.row( this ).data();
-        var data1 = {"Id": row.Id,
-                    "ClientName": row.ClientName,
-                    "Date": row.Date,
-                    "SalesRep": row.SalesRep}
-        console.log(JSON.stringify({"args": data1}));
-        var data = $.ajax({
-            type:'POST',
-            url: "/PerfectParty/onebook",
-            data: {args:JSON.stringify(data1)},
-            success: function(resultData) {
-                console.log("load in successful")
-                location.href="/PerfectParty/onebook"}
-        });
-    } );
-
-    $('#button').click( function () {
-        table.row('.selected').remove().draw( false );
-    } );
-} );
-
+    $.getJSON("/PerfectParty/onebook", function(data) {
+        $('#Result').text(data);
+    });
+    $.ajax({
+        url: "/PerfectParty/onebook",
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+            alert(data);
+        }
+    });
+});
 </script>
