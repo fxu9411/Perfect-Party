@@ -5,7 +5,16 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 
+import pymysql
+
 pages = Blueprint('pages', __name__)
+
+connection = pymysql.connect(host='127.0.0.1',
+                             user='admin',
+                             password='password',
+                             db='perfect_party',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
 
 # [START list]
 @pages.route("/booking", methods=['POST','GET'])
@@ -19,15 +28,24 @@ def main_page():
 
 @pages.route("/getBooking")
 def get_booking():
-    booking_list = {"data":[{"Id": '1',
-                           "ClientName": 'XXX1',
-                           "Date":'2019-05-01',
-                           "SalesRep":'SP1'},
-                          {"Id": '2',
-                           "ClientName": 'XXX2',
-                           "Date": '2019-05-09',
-                           "SalesRep": 'SP2'},
-                          ]}
+    with connection.cursor() as cursor:
+        sql = "SELECT booking.booking_id, client.client_name, DATE(booking.booking_date) as booking_date, booking.sales_rep " \
+              "FROM `perfect_party`.`booking`" \
+              "LEFT JOIN `perfect_party`.`event` as event USING (event_id)" \
+              "LEFT JOIN `perfect_party`.`client` as client ON event.client_id = client.client_id"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+    booking_list = {}
+    list_of_booking = []
+    for item in result:
+        obj = {'Id': item['booking_id'],
+               'ClientName': item['client_name'],
+               'Date': str(item['booking_date']),
+               'SalesRep': item['sales_rep']}
+        list_of_booking.append(obj)
+
+    booking_list['data'] = list_of_booking
     return jsonify(booking_list)
 
 @pages.route("/onebook", methods=['POST','GET'])
@@ -66,19 +84,21 @@ def venues():
 
 @pages.route("/getVenue")
 def get_venues():
-    venue_list = {"data":[{"VenueName": 'One',
-                           "Address": 'One Victoria Street South',
-                           "City":'Kitchener',
-                           "Country":'Canada',
-                           "Price":1000,
-                           "PostalCode": 'N2G0B5'},
-                          {"VenueName": 'Two',
-                           "Address": 'Two Victoria Street South',
-                           "City": 'Kitchener',
-                           "Country": 'Canada',
-                           "Price": 1200,
-                           "PostalCode": 'N2G0X5'}
-                          ]}
+    with connection.cursor() as cursor:
+        sql = "SELECT * FROM `venue`"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+    venue_list = {}
+    list_of_venue = []
+    for item in result:
+        obj = {'VenueName': item['venue_name'],
+               'Address': item['street_number'] + ' ' + item['street_name'],
+               'City': item['city'], 'Country': item['country'], 'PostalCode': item['postal_code'],
+               'Price': float(item['price'])}
+        list_of_venue.append(obj)
+
+    venue_list['data'] = list_of_venue
     return jsonify(venue_list)
 
 
@@ -88,23 +108,47 @@ def client():
 
 @pages.route("/getClient")
 def get_client():
-    client_list = {"data":[{"ClientName": 'Frank Xu',
-                           "Address": 'One Victoria Street South',
-                           "City":'Kitchener',
-                           "Country":'Canada',
-                           "PostalCode": 'N2G0B5'},
-                          {"ClientName": 'Weixuan Xu',
-                           "Address": 'Two Victoria Street South',
-                           "City": 'Kitchener',
-                           "Country": 'Canada',
-                           "PostalCode": 'N2G0X5'}
-                          ]}
+    with connection.cursor() as cursor:
+        sql = "SELECT * FROM `client`"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+    client_list = {}
+    list_of_client = []
+    for item in result:
+        obj = {'ClientName': item['client_name'],
+               'Address': item['street_number'] + ' ' + item['street_name'],
+               'City': item['city'], 'Country': item['country'], 'PostalCode': item['postal_code']}
+        list_of_client.append(obj)
+
+    client_list['data'] = list_of_client
     return jsonify(client_list)
 
 @pages.route("/supplier")
 def supplier():
-    token = request.args.get('page_token',None)
     return render_template("supplier.html")
+
+@pages.route("/getSupplier")
+def get_supplier():
+    with connection.cursor() as cursor:
+        sql = "SELECT * FROM `supplier`"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+    supplier_list = {}
+    list_of_supplier = []
+    for item in result:
+        obj = {'Supplier ID': item['supplier_id'],
+               'Name': item['name'],
+               'Phone Number': item['phone_number'],
+               'Type': item['type']}
+        list_of_supplier.append(obj)
+
+    supplier_list['data'] = list_of_supplier
+
+    return jsonify(supplier_list)
+
+
 
 @pages.route("/myaccount")
 def myaccount():
