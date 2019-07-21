@@ -82,6 +82,22 @@ def get_id():
 def venues():
     return render_template("venues.html")
 
+@pages.route("/schema")
+def schema():
+    with connection.cursor() as cursor:
+        sql = "SHOW TABLES"
+        cursor.execute(sql)
+        tables = cursor.fetchall()
+    s = []
+    for row in tables:
+        table = row["Tables_in_perfect_party"]
+        with connection.cursor() as cursor:
+            sql = f'DESCRIBE `{table}`'
+            cursor.execute(sql)
+            cols = cursor.fetchall()
+        s.append({table: cols})
+    return jsonify(s)
+
 @pages.route("/getVenue")
 def get_venues():
     with connection.cursor() as cursor:
