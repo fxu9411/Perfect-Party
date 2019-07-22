@@ -30,5 +30,5 @@ beta_settings:
     #   "project:region:cloudsql-instance"
     # You must also update the values in config.py.
     #
-    cloud_sql_instances: "cs-348:us-central1:library"
+  cloud_sql_instances: "cs-348:us-east1:perfectparty"
 #[END cloudsql_settings]
