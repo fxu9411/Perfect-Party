@@ -18,7 +18,11 @@
     </table>
     <hr>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#newClient">+ New Client</button>
-    <button type="button" class="btn btn-success" style="padding-left:15px, padding-right=15px" id="editform">Edit
+    <button type="button" class="btn btn-success" style="padding-left:15px, padding-right=15px;" id="editform">Edit
+    </button>
+    <button type="button" class="btn btn-danger float-right" style="padding-left:15px; padding-right=15px;"
+            id="deleteform">
+        Delete
     </button>
     <div class="modal fade" id="newClient" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -124,7 +128,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="postal">Postal Code:</label>
                             <div class="col-sm-10">
-                                <input type="text" required="required" class="form-control" id="edit-postal" name="postal"
+                                <input type="text" required="required" class="form-control" id="edit-postal"
+                                       name="postal"
                                        placeholder="N2L 3G1">
                             </div>
                         </div>
@@ -145,7 +150,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="country">Country:</label>
                             <div class="col-sm-10">
-                                <input type="text" required="required" class="form-control" id="edit-country" name="country"
+                                <input type="text" required="required" class="form-control" id="edit-country"
+                                       name="country"
                                        placeholder="Canada">
                             </div>
                         </div>
@@ -161,6 +167,36 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure to delete this entry?
+                    <form class="form-horizontal" action="{{ url_for('pages.delete_client') }}" method="post">
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" id="delete-id" name="id">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">
+                        Cancel
+                    </button>
+                    <!-- <button type="button" class="btn btn-primary" style="padding:5px 20px;" onclick="window.location.href='/PerfectParty'">Add</button> -->
+                    <input type="submit" class="btn btn-primary" value="Submit"/>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 </div>
 {% endblock %}
@@ -220,6 +256,20 @@
             document.getElementById('client-id').value=row_data.Client_ID;
             }
         });
+
+        $('#deleteform').click(function() {
+        if (editable == 0) {
+            alert('Please select a entry to delete');
+        }
+        else {
+            $('#delete').modal('show');
+            document.getElementById('delete-id').value=row_data.Client_ID;
+            }
+        });
     });
+
+
+
+
 </script>
 {% endblock %}

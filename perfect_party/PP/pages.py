@@ -248,6 +248,12 @@ def edit_client():
 
     return redirect(url_for('pages.client'))
 
+@pages.route('/deleteClient', methods=['POST'])
+def delete_client():\
+    #implementation here
+    print(request.form)
+    return redirect(url_for('pages.client'))
+
 
 @pages.route("/supplier")
 def supplier():
