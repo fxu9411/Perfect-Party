@@ -26,7 +26,8 @@
             crossorigin="anonymous"></script>
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"
+          rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 
     <!-- datatable -->
@@ -38,7 +39,8 @@
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"
+          rel="stylesheet"/>
 </head>
 
 <body>
@@ -71,21 +73,21 @@
                     <li class="header-menu">
                         <span>General</span>
                     </li>
-                    <li {% if onebook %}class="sidebar-dropdown active"{% endif %}>
-                      <a href="{{ url_for('pages.booking') }}"
-                         {% if booking %}style="color:#16c7ff"{% endif %}>
-                        <i class="fa fa-book"></i>
-                        <span>Booking</span>
-                      </a>
-                      {% if onebook %}
-                      <div class="sidebar-submenu" style="display: block;">
-                        <ul>
-                          <li>
-                            <a {% if onebook %}style="color:#16c7ff"{% endif %}>{{ result["type"] }}</a>
-                          </li>
-                        </ul>
-                      </div>
-                      {% endif %}
+                    <li {% if onebook %}class="sidebar-dropdown active" {% endif %}>
+                        <a href="{{ url_for('pages.booking') }}"
+                           {% if booking %}style="color:#16c7ff" {% endif %}>
+                            <i class="fa fa-book"></i>
+                            <span>Booking</span>
+                        </a>
+                        {% if onebook %}
+                        <div class="sidebar-submenu" style="display: block;">
+                            <ul>
+                                <li>
+                                    <a {% if onebook %}style="color:#16c7ff" {% endif %}>{{ result["type"] }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
                     </li>
                     <li>
                         <a href="{{ url_for('pages.client') }}" {% if client %}style="color:#16c7ff" {% endif %}>
@@ -138,10 +140,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="myaccount">
-                            <i class="fa fa-calendar"></i>
-                            <span>My Account</span>
-                        </a>
+                        <form name='account' action="{{ url_for('pages.myaccount') }}?account_id={{1}}" method="post">
+                            <a>
+                                <i class="fa fa-calendar"></i>
+                                <span onclick="account.submit()" style="cursor:pointer">My Account</span>
+                            </a>
+                        </form>
                     </li>
                     <li>
                         <a href="#" data-toggle="modal" data-target="#exampleModalCenter">
@@ -705,6 +709,7 @@ body {
 
 
 
+
 </style>
 
 <!--navbar script-->
@@ -744,6 +749,7 @@ $("#show-sidebar").click(function() {
 
 
 
+
 </script>
 
 <script>
@@ -756,6 +762,7 @@ $("#show-sidebar").click(function() {
         format: 'yyyy-mm-dd',
     });
     $('.datepicker').datepicker("setDate", new Date());
+
 </script>
 
 {% block javascript %}{% endblock %}

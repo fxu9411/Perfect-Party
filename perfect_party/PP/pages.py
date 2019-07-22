@@ -111,7 +111,7 @@ def get_book():
               "LEFT JOIN `perfect_party`.`event` as event USING (event_id) " \
               "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id " \
               "LEFT JOIN `perfect_party`.`venue` as venue ON event.venue_id = venue.venue_id " \
-            f"WHERE `booking_id`='{booking_id}' "
+             f"WHERE `booking_id`='{booking_id}' "
         cursor.execute(sql)
         result = cursor.fetchone()
     print(result)
@@ -515,12 +515,6 @@ def item_entertainment():
     return item('Entertainment')
 
 
-@pages.route("/myaccount")
-def myaccount():
-    token = request.args.get('page_token', None)
-    return render_template("myaccount.html")
-
-
 @pages.route("/schema")
 def schema():
     with connection.cursor() as cursor:
@@ -536,3 +530,21 @@ def schema():
             cols = cursor.fetchall()
         s.append({table: cols})
     return jsonify(s)
+
+
+@pages.route("/myaccount", methods=['POST'])
+def myaccount():
+    account_id = request.args['account_id']
+    with connection.cursor() as cursor:
+        sql = "SELECT * FROM `perfect_party`.`account` as account WHERE account_id = {0}".format(account_id)
+        cursor.execute(sql)
+        result = cursor.fetchone()
+
+    return render_template("myaccount.html", result=result)
+
+
+@pages.route("/editAccount", methods=['POST'])
+def edit_account():
+    name = request.form['name']
+    print(request.form)
+    return render_template("editaccount.html")
