@@ -24,11 +24,11 @@
   {% include 'sidebar.html' %}
   {% block title %}nav_supplier{% endblock %}
   <main class="page-content">
-    <h2 class="display-4">Supplier</h2>
+    <h2 class="display-4">{{item}}</h2>
     <hr>
     <div class = "row"></div>
     <div class="container-fluid">
-      <table id="supplier" class="display" style="width:100%">
+      <table id="item" class="display" style="width:100%">
         <thead>
             <tr>
                 <th>Supplier ID</th>
@@ -86,6 +86,7 @@
 <!--</script>-->
 
 <!--datatable script-->
+<!--
 <script>
 $(document).ready(function() {
     $('#supplier').DataTable( {
@@ -117,3 +118,4 @@ $(document).ready(function() {
 } );
 $( window ).on( "load", setupData );
 </script>
+-->

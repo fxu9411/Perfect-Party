@@ -18,7 +18,7 @@ connection = pymysql.connect(host='127.0.0.1',
 
 # [START list]
 def main_page():
-    return booking()
+    return booking
 
 @pages.route("/booking", methods=['POST','GET'])
 def booking():
@@ -140,7 +140,7 @@ def add_venue():
         cursor.execute(sql, (name, str_number, str_name, unit_number, city, province, country, postal, price))
     connection.commit()
 
-    return redirect(url_for('pages.venues'))
+    return redirect(url_for('pages.venue'))
 
 @pages.route("/client")
 def client():
@@ -182,7 +182,7 @@ def add_client():
         cursor.execute(sql, (name, str_number, str_name, unit_number, city, province, country, postal))
     connection.commit()
 
-    return redirect(url_for('pages.clients'))
+    return redirect(url_for('pages.client'))
 
 @pages.route("/supplier")
 def supplier():
@@ -209,19 +209,19 @@ def get_supplier():
     return jsonify(supplier_list)
 
 def item(tpe):
-    return render_template("supplier.html", item=tpe, food=(tpe == 'food'))
+    return render_template("item.html", item=tpe, food=(tpe == 'food'))
 
 @pages.route("/item/food")
 def item_food():
-    return item('food')
+    return item('Food')
 
 @pages.route("/item/decor")
 def item_decor():
-    return item('decor')
+    return item('Decor')
 
 @pages.route("/item/entertainment")
 def item_entertainment():
-    return item('entertainment')
+    return item('Entertainment')
 
 @pages.route("/myaccount")
 def myaccount():
