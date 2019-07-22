@@ -209,6 +209,20 @@ def get_supplier():
 
     return jsonify(supplier_list)
 
+@pages.route('/addSupplier', methods=['POST'])
+def add_supplier():
+    print(request.form)
+    name = request.form['name']
+    phone = request.form['phone']
+    tpe = request.form['type']
+
+    with connection.cursor() as cursor:
+        # Create a new record
+        sql = "INSERT INTO `supplier`(name, phone_number, type) VALUES (%s, %s, %s)"
+        cursor.execute(sql, (name, phone, tpe))
+    connection.commit()
+
+    return redirect(url_for('pages.supplier'))
 
 @pages.route("/item/getitem")
 def get_item():
