@@ -1,173 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-          content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
-    <title>Perfect Party</title>
-
-
-    <!-- Jquery-->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-
-    <!-- bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-</head>
-
-<body>
-<div class="page-wrapper chiller-theme toggled">
-    {% include 'sidebar.html' %}
-    <main class="page-content">
-        <h2 style="display:inline-block, float:left" class="display-4">Venue</h2>
-        <hr>
-        <div class="row"></div>
-        <div class="container-fluid">
-            <table id="venue" class="display" style="width:100%">
-                <thead>
-                <tr>
-                    <th>Venue Name</th>
-                    <th>Price</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>Country</th>
-                    <th>Postal Code</th>
-                </tr>
-                </thead>
-            </table>
-        </div>
-        <hr>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#newVenue">+ New Venue</button>
-        <div class="modal fade" id="newVenue" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add Venue</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form class="form-horizontal" action="{{ url_for('pages.add_venue') }}" method="post">
-                  <div class="form-group">
-                    <label class="control-label col-sm-3" for="name">Name:</label>
-                    <div class="col-sm-10">
-                      <input type="text" required="required" class="form-control" id="name" name="name" placeholder="University of Waterloo">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3" for="address">Address:</label>
-                    <div class="col-sm-10 form-inline">
-                      <input type="text" required="required" class="form-control col-sm-3" id="str-num" name="str-number" placeholder="Number">
-                      <input type="text" required="required" class="form-control col-sm-7" id="str-name" name="str-name" placeholder="Street">
-                      <input type="text" class="form-control col-sm-2" id="unit" name="unit" placeholder="Unit">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3" for="postal">Postal Code:</label>
-                    <div class="col-sm-10">
-                      <input type="text" required="required" class="form-control" id="postal" name="postal" placeholder="N2L 3G1">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3" for="city">City:</label>
-                    <div class="col-sm-10">
-                      <input type="text" required="required" class="form-control" id="city" name="city" placeholder="Waterloo">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3" for="province">Province:</label>
-                    <div class="col-sm-10">
-                      <input type="text" required="required" class="form-control" id="province" name="province" placeholder="Ontario">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3" for="country">Country:</label>
-                    <div class="col-sm-10">
-                      <input type="text" required="required" class="form-control" id="country" name="country" placeholder="Canada">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3" for="price">Price (CAD):</label>
-                    <div class="col-sm-10">
-                      <input type="text" required="required" class="form-control" id="price" name = "price" placeholder="Price">
-                    </div>
-                  </div>
-              </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">Cancel</button>
-                  <!-- <button type="button" class="btn btn-primary" style="padding:5px 20px;" onclick="window.location.href='/PerfectParty'">Add</button> -->
-                  <input type="submit" class="btn btn-primary" value="Submit"/>
-                </div>
-              </form>
+{% extends "layout.html" %}
+{% block content %}
+<h2 style="display:inline-block, float:left" class="display-4">Venue</h2>
+<hr>
+<div class="row"></div>
+<div class="container-fluid">
+  <table id="venue" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Venue Name</th>
+        <th>Price</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Postal Code</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+<hr>
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#newVenue">+ New Venue</button>
+<div class="modal fade" id="newVenue" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Venue</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" action="{{ url_for('pages.add_venue') }}" method="post">
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="name">Name:</label>
+            <div class="col-sm-10">
+              <input type="text" required="required" class="form-control" id="name" name="name" placeholder="University of Waterloo">
             </div>
           </div>
-        </div>
-    </main>
-    <!-- page-content" -->
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="address">Address:</label>
+            <div class="col-sm-10 form-inline">
+              <input type="text" required="required" class="form-control col-sm-3" id="str-num" name="str-number" placeholder="Number">
+              <input type="text" required="required" class="form-control col-sm-7" id="str-name" name="str-name" placeholder="Street">
+              <input type="text" class="form-control col-sm-2" id="unit" name="unit" placeholder="Unit">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="postal">Postal Code:</label>
+            <div class="col-sm-10">
+              <input type="text" required="required" class="form-control" id="postal" name="postal" placeholder="N2L 3G1">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="city">City:</label>
+            <div class="col-sm-10">
+              <input type="text" required="required" class="form-control" id="city" name="city" placeholder="Waterloo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="province">Province:</label>
+            <div class="col-sm-10">
+              <input type="text" required="required" class="form-control" id="province" name="province" placeholder="Ontario">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="country">Country:</label>
+            <div class="col-sm-10">
+              <input type="text" required="required" class="form-control" id="country" name="country" placeholder="Canada">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="price">Price (CAD):</label>
+            <div class="col-sm-10">
+              <input type="text" required="required" class="form-control" id="price" name = "price" placeholder="Price">
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">Cancel</button>
+        <!-- <button type="button" class="btn btn-primary" style="padding:5px 20px;" onclick="window.location.href='/PerfectParty'">Add</button> -->
+        <input type="submit" class="btn btn-primary" value="Submit"/>
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
-<!-- page-wrapper -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-
-<!-- datatable -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-
-<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" ref="stylesheet">
-<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-</body>
-
-</html>
-
-{% include 'sidebar-footer.html' %}
-
+{% endblock %}
+{% block javascript %}
 <!--datatable script-->
 <script>
-$(document).ready(function() {
-    $('#venue').DataTable( {
-        "processing": true,
-        "ajax": {url: "/PerfectParty/getVenue",dataType:"json", dataSrc: "data", "contentType":"application/json"},
-        "columns": [
-            {data: "VenueName"},
-            {data: "Price"},
-            {data: "Address"},
-            {data: "City"},
-            {data: "Country"},
-            {data: "PostalCode"}
-        ],
-    } );
-    $("#venue").css('cursor', 'pointer');
-    var table = $('#venue').DataTable();
+  $(document).ready(function() {
+      $('#venue').DataTable( {
+          "processing": true,
+          "ajax": {url: "/PerfectParty/getVenue",dataType:"json", dataSrc: "data", "contentType":"application/json"},
+          "columns": [
+              {data: "VenueName"},
+              {data: "Price"},
+              {data: "Address"},
+              {data: "City"},
+              {data: "Country"},
+              {data: "PostalCode"}
+          ],
+      } );
+      $("#venue").css('cursor', 'pointer');
+      var table = $('#venue').DataTable();
 
-    $('#venue tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        }
-        else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    } );
+      $('#venue tbody').on( 'click', 'tr', function () {
+          if ( $(this).hasClass('selected') ) {
+              $(this).removeClass('selected');
+          }
+          else {
+              table.$('tr.selected').removeClass('selected');
+              $(this).addClass('selected');
+          }
+      } );
 
-    $('#button').click( function () {
-        table.row('.selected').remove().draw( false );
-    } );
-} );
-$( window ).on( "load", setupData );
+      $('#button').click( function () {
+          table.row('.selected').remove().draw( false );
+      } );
+  } );
+  $( window ).on( "load", setupData );
 </script>
+{% endblock %}
