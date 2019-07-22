@@ -56,14 +56,16 @@ def get_booking():
 @pages.route("/postbook", methods=['POST'])
 def post_book():
     args = json.loads(request.values.get("args"))
-    booking_id = args['Id']
+    booking_id = args['ID']
     print(booking_id)
-    return get_book(booking_id)
+    return redirect(url_for('pages.get_book',id=booking_id))
 
 
 @pages.route("/onebook")
-def get_book(id):
-    return render_template('onebook.html',Id=id)
+def get_book():
+    print('XXXX')
+    id = request.args['id']  # counterpart for url_for()
+    return render_template("onebook.html", messages=id)
 
 @pages.route("/postBooking", methods=['POST'])
 def get_id():

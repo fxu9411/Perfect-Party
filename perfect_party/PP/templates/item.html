@@ -17,17 +17,18 @@
 {% endblock %}
 {% block javascript %}
 <!--datatable script-->
-<!--
+
 <script>
 $(document).ready(function() {
+    var type= $({{item}}).val()
+    console.log(jQuery.type(type))
     $('#item').DataTable( {
         "processing": true,
-        "ajax": {url: "/PerfectParty/getSupplier",dataType:"json", dataSrc: "data", "contentType":"application/json"},
+        "ajax": {url: "/PerfectParty/item/getitem",dataType:"json", dataSrc: "data", "contentType":"application/json"},
         "columns": [
-            {data: "Supplier ID"},
             {data: "Name"},
-            {data: "Phone Number"},
-            {data: "Type"}
+            {data: "Price"},
+            {data: "Supplier"},
         ],
     } );
     $("#item").css('cursor', 'pointer');
@@ -50,4 +51,4 @@ $(document).ready(function() {
 $( window ).on( "load", setupData );
 </script>
 {% endblock %}
--->
+
