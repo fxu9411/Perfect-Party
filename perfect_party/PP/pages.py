@@ -240,9 +240,9 @@ def get_item():
     food_list = {}
     list_of_food = []
     for item in result:
-        print(item)
         obj = {'ID': item['item_id'],
                'Name': item['name'],
+               'Price': str(item['price']),
                'Supplier ID': item['supplier.supplier_id'],
                'Supplier Name': item['supplier.name'],
                'Type': item['type']}
@@ -252,8 +252,30 @@ def get_item():
 
     return jsonify(food_list)
 
-def item(tpe):
-    return render_template("item.html", item=tpe, food=(tpe == 'food'))
+@pages.route('/addItem', methods=['POST'])
+def add_item():
+    print(request.form)
+    item = request.args.get('item')
+    name = request.form['name']
+    price = request.form['price']
+    supplier_id = request.form['supplier_id']
+
+    with connection.cursor() as cursor:
+        # Create a new record
+        sql = "INSERT INTO `item_option`(name, price, supplier_id) VALUES (%s, %s, %s)"
+        cursor.execute(sql, (name, price, supplier_id))
+    connection.commit()
+
+    return redirect(url_for(f'pages.item_{item.lower()}'))
+
+def item(item):
+    with connection.cursor() as cursor:
+        sql = "SELECT * " \
+            "FROM `supplier` " \
+            f"WHERE type='{item}'"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+    return render_template("item.html", item=item, suppliers=result)
 
 @pages.route("/item/food")
 def item_food():
