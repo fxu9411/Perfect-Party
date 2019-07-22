@@ -71,11 +71,21 @@
                     <li class="header-menu">
                         <span>General</span>
                     </li>
-                    <li>
-                        <a href="{{ url_for('pages.booking') }}" {% if booking %}style="color:#16c7ff" {% endif %}>
-                            <i class="fa fa-book"></i>
-                            <span>Booking</span>
-                        </a>
+                    <li {% if onebook %}class="sidebar-dropdown active"{% endif %}>
+                      <a href="{{ url_for('pages.booking') }}"
+                         {% if booking %}style="color:#16c7ff"{% endif %}>
+                        <i class="fa fa-book"></i>
+                        <span>Booking</span>
+                      </a>
+                      {% if onebook %}
+                      <div class="sidebar-submenu" style="display: block;">
+                        <ul>
+                          <li>
+                            <a {% if onebook %}style="color:#16c7ff"{% endif %}>{{ result["type"] }}</a>
+                          </li>
+                        </ul>
+                      </div>
+                      {% endif %}
                     </li>
                     <li>
                         <a href="{{ url_for('pages.client') }}" {% if client %}style="color:#16c7ff" {% endif %}>
