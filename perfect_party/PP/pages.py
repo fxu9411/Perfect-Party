@@ -44,20 +44,26 @@ def booking():
 @pages.route("/getBooking")
 def get_booking():
     with connection.cursor() as cursor:
-        sql = "SELECT booking.booking_id, client.client_name, DATE(booking.booking_date) as booking_date, booking.sales_rep " \
+        sql = "SELECT booking.booking_id, client.client_name, DATE(booking.booking_date) as booking_date, booking.sales_rep, " \
+              "DATE(event.event_date) as event_date, venue.venue_name " \
               "FROM `perfect_party`.`booking` as booking " \
               "LEFT JOIN `perfect_party`.`event` as event USING (event_id) " \
-              "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id "
+              "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id " \
+              "LEFT JOIN `perfect_party`.`venue` as venue ON event.venue_id = venue.venue_id "
         cursor.execute(sql)
         result = cursor.fetchall()
 
     booking_list = {}
     list_of_booking = []
     for item in result:
+        print(item)
         obj = {'ID': item['booking_id'],
                'ClientName': item['client_name'],
                'Date': str(item['booking_date']),
-               'SalesRep': item['sales_rep']}
+               'SalesRep': item['sales_rep'],
+               'Venue': item['sales_rep'],
+               'EventDate': str(item['event_date']),
+               'VenueName': str(item['venue_name']),}
         list_of_booking.append(obj)
 
     booking_list['data'] = list_of_booking
