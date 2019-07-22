@@ -114,7 +114,11 @@ def get_venues():
                'City': item['city'],
                'Country': item['country'],
                'PostalCode': item['postal_code'],
-               'Price': float(item['price'])}
+               'Price': float(item['price']),
+               'ID': item['venue_id'],
+               'Street_Number': item['street_number'],
+               'Street_Name': item['street_name'],
+               'Unit_Number': item['unit_number']}
         list_of_venue.append(obj)
     # cursor.close()
     venue_list['data'] = list_of_venue
@@ -142,6 +146,47 @@ def add_venue():
 
     return redirect(url_for('pages.venue'))
 
+
+@pages.route('/editVenue', methods=['POST'])
+def edit_venue():
+    print(request.form)
+    name = request.form['name']
+    str_name = request.form['str-name']
+    str_number = request.form['str-number']
+    unit_number = request.form['unit'] if 'unit' in request.form else 'NULL'
+    city = request.form['city']
+    province = request.form['province']
+    country = request.form['country']
+    postal = request.form['postal']
+    price = request.form['price']
+    id = request.form['id']
+
+    with connection.cursor() as cursor:
+        sql = "UPDATE `client` SET client_name = %s, street_number = %s, street_name = %s, " \
+              "unit_number = %s, city = %s, province = %s, country = %s, postal_code = %s " \
+              "WHERE client_id = %d;" % (repr(name), repr(str_number), repr(str_name), repr(unit_number),
+                                         repr(city), repr(province), repr(country), repr(postal), int(id))
+        print(sql)
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
+    return redirect(url_for('pages.client'))
+
+
+@pages.route('/deleteVenue', methods=['POST'])
+def delete_venue(): \
+        # implementation here
+    print(request.form)
+    id = request.form['id']
+
+    with connection.cursor() as cursor:
+        sql = "DELETE FROM `venue` WHERE venue_id = %d;" % int(id)
+        print(sql)
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
+
+    return redirect(url_for('pages.client'))
 
 @pages.route("/client")
 def client():
@@ -371,14 +416,6 @@ def item(item):
         result = cursor.fetchall()
     return render_template("item.html", item=item, suppliers=result)
 
-
-# def venue():
-#     with connection.cursor() as cursor:
-#         sql = "SELECT * " \
-#               "FROM `venue` "
-#         cursor.execute(sql)
-#         result = cursor.fetchall()
-#     return render_template("venue.html", venue=venue, venues=result)
 
 @pages.route("/item/food")
 def item_food():
