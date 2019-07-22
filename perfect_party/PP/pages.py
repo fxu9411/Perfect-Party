@@ -200,8 +200,7 @@ def get_supplier():
     for item in result:
         obj = {'Supplier ID': item['supplier_id'],
                'Name': item['name'],
-               'Phone Number': item['phone_number'],
-               'Type': item['type']}
+               'Phone Number': item['phone_number']}
         list_of_supplier.append(obj)
 
     supplier_list['data'] = list_of_supplier
