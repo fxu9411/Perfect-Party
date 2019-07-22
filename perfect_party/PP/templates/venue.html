@@ -115,13 +115,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" action="{{ url_for('pages.add_venue') }}" method="post">
+                    <form class="form-horizontal" action="{{ url_for('pages.edit_venue') }}" method="post">
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="name">Name:</label>
                             <div class="col-sm-10">
                                 <input type="text" required="required" class="form-control" id="edit-name" name="name"
                                        placeholder="University of Waterloo">
                             </div>
+                            <input type="hidden" class="form-control" id="edit-id" name="id">
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="address">Address:</label>
@@ -267,7 +268,7 @@ $(document).ready(function() {
             document.getElementById('edit-province').value=row_data.Province;
             document.getElementById('edit-country').value=row_data.Country;
             document.getElementById('edit-price').value=row_data.Price;
-            document.getElementById('id').value=row_data.Client_ID;
+            document.getElementById('edit-id').value=row_data.ID;
             }
         });
 
@@ -277,10 +278,11 @@ $(document).ready(function() {
         }
         else {
             $('#delete').modal('show');
-            document.getElementById('delete-id').value=row_data.Client_ID;
+            document.getElementById('delete-id').value=row_data.ID;
             }
         });
 } );
+
 
 
 </script>

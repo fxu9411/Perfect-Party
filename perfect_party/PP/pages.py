@@ -135,18 +135,29 @@ def get_venues():
     venue_list = {}
     list_of_venue = []
     for item in result:
-        obj = {'VenueName': item['venue_name'],
-               'Address': item['street_number'] + ' ' + item['street_name'],
-               'City': item['city'],
-               'Country': item['country'],
-               'PostalCode': item['postal_code'],
-               'Price': float(item['price']),
-               'ID': item['venue_id'],
-               'Street_Number': item['street_number'],
-               'Street_Name': item['street_name'],
-               'Unit_Number': item['unit_number']}
+        if item['unit_number'] == '':
+            obj = {'VenueName': item['venue_name'],
+                   'Address': item['street_number'] + ' ' + item['street_name'],
+                   'City': item['city'],
+                   'Country': item['country'],
+                   'PostalCode': item['postal_code'],
+                   'Price': float(item['price']),
+                   'ID': item['venue_id'],
+                   'Street_Number': item['street_number'],
+                   'Street_Name': item['street_name'],
+                   'Unit_Number': item['unit_number']}
+        else:
+            obj = {'VenueName': item['venue_name'],
+                   'Address': item['unit_number'] + '-' + item['street_number'] + ' ' + item['street_name'],
+                   'City': item['city'],
+                   'Country': item['country'],
+                   'PostalCode': item['postal_code'],
+                   'Price': float(item['price']),
+                   'ID': item['venue_id'],
+                   'Street_Number': item['street_number'],
+                   'Street_Name': item['street_name'],
+                   'Unit_Number': item['unit_number']}
         list_of_venue.append(obj)
-    # cursor.close()
     venue_list['data'] = list_of_venue
     return jsonify(venue_list)
 
@@ -188,20 +199,19 @@ def edit_venue():
     id = request.form['id']
 
     with connection.cursor() as cursor:
-        sql = "UPDATE `client` SET client_name = %s, street_number = %s, street_name = %s, " \
-              "unit_number = %s, city = %s, province = %s, country = %s, postal_code = %s " \
-              "WHERE client_id = %d;" % (repr(name), repr(str_number), repr(str_name), repr(unit_number),
-                                         repr(city), repr(province), repr(country), repr(postal), int(id))
+        sql = "UPDATE `venue` SET venue_name = %s, street_number = %s, street_name = %s, " \
+              "unit_number = %s, city = %s, province = %s, country = %s, postal_code = %s, price = %d" \
+              " WHERE venue_id = %d;" % (repr(name), repr(str_number), repr(str_name), repr(unit_number),
+                                         repr(city), repr(province), repr(country), repr(postal), int(price), int(id))
         print(sql)
         cursor.execute(sql)
         connection.commit()
         cursor.close()
-    return redirect(url_for('pages.client'))
+    return redirect(url_for('pages.venue'))
 
 
 @pages.route('/deleteVenue', methods=['POST'])
-def delete_venue(): \
-        # implementation here
+def delete_venue():
     print(request.form)
     id = request.form['id']
 
@@ -212,7 +222,7 @@ def delete_venue(): \
         connection.commit()
         cursor.close()
 
-    return redirect(url_for('pages.client'))
+    return redirect(url_for('pages.venue'))
 
 @pages.route("/client")
 def client():
