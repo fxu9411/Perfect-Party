@@ -41,7 +41,7 @@ def get_booking():
     booking_list = {}
     list_of_booking = []
     for item in result:
-        obj = {'Id': item['booking_id'],
+        obj = {'ID': item['booking_id'],
                'ClientName': item['client_name'],
                'Date': str(item['booking_date']),
                'SalesRep': item['sales_rep']}
@@ -65,17 +65,7 @@ def one_book():
 def get_id():
 
     args = json.loads(request.values.get("args"))
-    client_list = {"data": [{"ClientName": 'Frank Xu',
-                             "Address": 'One Victoria Street South',
-                             "City": 'Kitchener',
-                             "Country": 'Canada',
-                             "PostalCode": 'N2G0B5'},
-                            {"ClientName": 'Weixuan Xu',
-                             "Address": 'Two Victoria Street South',
-                             "City": 'Kitchener',
-                             "Country": 'Canada',
-                             "PostalCode": 'N2G0X5'}
-                            ]}
+
     booking_id = int(args['Id'])
     return jsonify(client_list)
 
@@ -207,31 +197,36 @@ def get_supplier():
 
     return jsonify(supplier_list)
 
+
+# @pages.route(/get_item)
+# def get_item(item_type):
+#     with connection.cursor() as cursor:
+#         sql = "SELECT item.name as item_name, item.price, supplier.name as supplier_name " \
+#               "FROM `perfect_party`.`item_option` as item " \
+#               "LEFT JOIN `perfect_party`.`supplier` as supplier " \
+#               "ON item.supplier_id = supplier.supplier_id " \
+#               "WHERE type = %s", %tpe
+#         cursor.execute(sql)
+#         result = cursor.fetchall()
+#
+#     food_list = {}
+#     list_of_food = []
+#     for item in result:
+#         obj = {'Name': item['item_name'],
+#                'Price': float(item['price']),
+#                'Supplier': item['supplier_name']}
+#         list_of_food.append(obj)
+#
+#     food_list['data'] = list_of_food
+#
+#     return jsonify(food_list)
+
 def item(tpe):
-    return render_template("item.html", item=tpe, food=(tpe == 'food'))
+    return render_template("item.html", item=tpe)
 
 @pages.route("/item/food")
 def item_food():
-    with connection.cursor() as cursor:
-        sql = "SELECT item.name as item_name, item.price, supplier.name as supplier_name " \
-              "FROM `perfect_party`.`item_option` as item " \
-              "LEFT JOIN `perfect_party`.`supplier` as supplier " \
-              "ON item.supplier_id = supplier.supplier_id " \
-              "WHERE type = 'food'"
-        cursor.execute(sql)
-        result = cursor.fetchall()
-
-    food_list = {}
-    list_of_food = []
-    for item in result:
-        obj = {'Name': item['item_name'],
-               'Price': float(item['price']),
-               'Supplier': item['supplier_name']}
-        list_of_food.append(obj)
-
-    food_list['data'] = list_of_food
-
-    return jsonify(food_list)
+    return item('Food')
 
 @pages.route("/item/decor")
 def item_decor():

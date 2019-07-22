@@ -23,7 +23,7 @@
           "processing": true,
           "ajax": {url: "/PerfectParty/getBooking",type:"GET", dataSrc: "data", "contentType":"application/json"},
           "columns": [
-              {data: "Id"},
+              {data: "ID"},
               {data: "ClientName"},
               {data: "Date"},
               {data: "SalesRep"},
@@ -35,7 +35,7 @@
 
       $('#example tbody').on( 'dblclick', 'tr', function () {
           var row = table.row( this ).data();
-          var data1 = {"Id": row.Id,
+          var data1 = {"ID": row.Id,
                        "ClientName": row.ClientName,
                        "Date": row.Date,
                        "SalesRep": row.SalesRep}
