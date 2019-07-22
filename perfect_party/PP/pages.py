@@ -34,16 +34,16 @@ def booking():
 def get_booking():
     with connection.cursor() as cursor:
         sql = "SELECT booking.booking_id, client.client_name, DATE(booking.booking_date) as booking_date, booking.sales_rep " \
-              "FROM `perfect_party`.`booking`" \
-              "LEFT JOIN `perfect_party`.`event` as event USING (event_id)" \
-              "LEFT JOIN `perfect_party`.`client` as client ON event.client_id = client.client_id"
+              "FROM `perfect_party`.`booking` as booking " \
+              "LEFT JOIN `perfect_party`.`event` as event USING (event_id) " \
+              "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id "
         cursor.execute(sql)
         result = cursor.fetchall()
 
     booking_list = {}
     list_of_booking = []
     for item in result:
-        obj = {'Id': item['booking_id'],
+        obj = {'ID': item['booking_id'],
                'ClientName': item['client_name'],
                'Date': str(item['booking_date']),
                'SalesRep': item['sales_rep']}
