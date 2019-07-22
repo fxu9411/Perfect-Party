@@ -6,7 +6,6 @@
 <table id="supplier" class="display" style="width:100%">
     <thead>
     <tr>
-        <th>Supplier ID</th>
         <th>Name</th>
         <th>Phone Number</th>
         <th>Type</th>
@@ -159,7 +158,6 @@ $(document).ready(function() {
         "processing": true,
         "ajax": {url: "/PerfectParty/getSupplier",dataType:"json", dataSrc: "data", "contentType":"application/json"},
         "columns": [
-            {data: "Supplier ID"},
             {data: "Name"},
             {data: "Phone Number"},
             {data: "Type"},

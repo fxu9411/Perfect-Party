@@ -30,12 +30,12 @@ def booking():
         return redirect(url_for('pages.one_book', Id=args['Id']))
     with connection.cursor() as cursor:
         sql = "SELECT * " \
-            "FROM `venue`"
+              "FROM `venue`"
         cursor.execute(sql)
         venues = cursor.fetchall()
     with connection.cursor() as cursor:
         sql = "SELECT * " \
-            "FROM `client`"
+              "FROM `client`"
         cursor.execute(sql)
         clients = cursor.fetchall()
     return render_template("booking.html", booking=True, venues=venues, clients=clients)
@@ -63,7 +63,7 @@ def get_booking():
                'SalesRep': item['sales_rep'],
                'Venue': item['sales_rep'],
                'EventDate': str(item['event_date']),
-               'VenueName': str(item['venue_name']),}
+               'VenueName': str(item['venue_name']), }
         list_of_booking.append(obj)
 
     booking_list['data'] = list_of_booking
@@ -111,11 +111,12 @@ def get_book():
               "LEFT JOIN `perfect_party`.`event` as event USING (event_id) " \
               "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id " \
               "LEFT JOIN `perfect_party`.`venue` as venue ON event.venue_id = venue.venue_id " \
-              f"WHERE `booking_id`='{booking_id}' "
+            f"WHERE `booking_id`='{booking_id}' "
         cursor.execute(sql)
         result = cursor.fetchone()
     print(result)
     return render_template("onebook.html", onebook=True, result=result)
+
 
 @pages.route("/postBooking", methods=['POST'])
 def get_id():
@@ -127,6 +128,7 @@ def get_id():
 @pages.route("/venue")
 def venue():
     return render_template("venue.html", venue=True)
+
 
 @pages.route("/getVenue")
 def get_venues():
@@ -227,6 +229,7 @@ def delete_venue():
 
     return redirect(url_for('pages.venue'))
 
+
 @pages.route("/client")
 def client():
     return render_template("client.html", client=True)
@@ -242,7 +245,7 @@ def get_client():
     client_list = {}
     list_of_client = []
     for item in result:
-        if item['unit_number'] == None:
+        if item['unit_number'] == '' or item['unit_number'] == None:
             obj = {'ClientName': item['client_name'],
                    'Address': item['street_number'] + ' ' + item['street_name'],
                    'City': item['city'],
@@ -315,9 +318,10 @@ def edit_client():
         cursor.close()
     return redirect(url_for('pages.client'))
 
+
 @pages.route('/deleteClient', methods=['POST'])
-def delete_client():\
-    #implementation here
+def delete_client(): \
+        # implementation here
     print(request.form)
     id = request.form['id']
 
@@ -374,6 +378,7 @@ def edit_supplier():
         cursor.close()
     return redirect(url_for('pages.supplier'))
 
+
 @pages.route('/addSupplier', methods=['POST'])
 def add_supplier():
     print(request.form)
@@ -403,15 +408,16 @@ def delete_supplier():
         cursor.close()
     return redirect(url_for('pages.supplier'))
 
+
 @pages.route("/item/getitem")
 def get_item():
-    item=request.args.get('item')
+    item = request.args.get('item')
     with connection.cursor() as cursor:
         sql = "SELECT *" \
               "FROM `perfect_party`.`item_option` as item " \
               "LEFT JOIN `perfect_party`.`supplier` as supplier " \
               "ON item.supplier_id = supplier.supplier_id " \
-              f"WHERE type = '{item}'"
+            f"WHERE type = '{item}'"
         cursor.execute(sql)
         result = cursor.fetchall()
 
@@ -430,6 +436,7 @@ def get_item():
 
     return jsonify(food_list)
 
+
 @pages.route('/addItem', methods=['POST'])
 def add_item():
     print(request.form)
@@ -446,10 +453,47 @@ def add_item():
 
     return redirect(url_for(f'pages.item_{item.lower()}'))
 
+
+@pages.route('/editItem', methods=['POST'])
+def edit_item():
+    print(request.form)
+    item = request.form['item']
+    name = request.form['name']
+    price = request.form['price']
+    supplier_id = request.form['supplier_id']
+    id = request.form['id']
+
+    with connection.cursor() as cursor:
+        sql = "UPDATE `item_option` SET name = %s, price = %s, supplier_id = %s " \
+              "WHERE item_id = %d;" % (repr(name), float(price), repr(supplier_id), int(id))
+        print(sql)
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
+
+    return redirect(url_for(f'pages.item_{item.lower()}'))
+
+
+@pages.route('/deleteItem', methods=['POST'])
+def delete_item():
+    print(request.form)
+    id = request.form['id']
+    item = request.form['item']
+
+    with connection.cursor() as cursor:
+        sql = "DELETE FROM `item_option` WHERE item_id = %d;" % int(id)
+        print(sql)
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
+
+    return redirect(url_for(f'pages.item_{item.lower()}'))
+
+
 def item(item):
     with connection.cursor() as cursor:
         sql = "SELECT * " \
-            "FROM `supplier` " \
+              "FROM `supplier` " \
             f"WHERE type='{item}'"
         cursor.execute(sql)
         result = cursor.fetchall()
