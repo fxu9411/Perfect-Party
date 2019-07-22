@@ -100,19 +100,22 @@ def add_booking():
     return redirect(url_for('pages.booking'))
 
 
-@pages.route("/postbook", methods=['POST'])
-def post_book():
-    args = json.loads(request.values.get("args"))
-    booking_id = args['ID']
-    print(booking_id)
-    return redirect(url_for('pages.get_book',id=booking_id))
-
-
-@pages.route("/onebook")
+@pages.route("/onebook", methods=['GET'])
 def get_book():
-    print('XXXX')
-    id = request.args['id']  # counterpart for url_for()
-    return render_template("onebook.html", messages=id)
+    booking_id = request.args.get('booking_id')
+    print('booking_id = ', booking_id)
+    with connection.cursor() as cursor:
+        sql = "SELECT booking.booking_id, client.client_name, DATE(booking.booking_date) as booking_date, booking.sales_rep, " \
+              "DATE(event.event_date) as event_date, venue.venue_name, event.type " \
+              "FROM `perfect_party`.`booking` as booking " \
+              "LEFT JOIN `perfect_party`.`event` as event USING (event_id) " \
+              "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id " \
+              "LEFT JOIN `perfect_party`.`venue` as venue ON event.venue_id = venue.venue_id " \
+              f"WHERE `booking_id`='{booking_id}' "
+        cursor.execute(sql)
+        result = cursor.fetchone()
+    print(result)
+    return render_template("onebook.html", booking=True, onebook=True, result=result)
 
 @pages.route("/postBooking", methods=['POST'])
 def get_id():
