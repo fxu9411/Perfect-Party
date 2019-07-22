@@ -2,7 +2,7 @@
 {% block content %}
 <h2 class="display-4">Booking</h2>
 <hr>
-<table id="example" class="display" style="width:100%">
+<table id="client" class="display" style="width:100%">
   <thead>
     <tr>
       <th>Booking ID</th>
@@ -16,6 +16,8 @@
 </table>
 <hr>
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#newBooking">+ New Booking</button>
+<button type="button" class="btn btn-success" style="padding-left:15px, padding-right=15px;" id="editform">Edit</button>
+<!-- <button type="button" class="btn btn-danger float-right" style="padding-left:15px; padding-right=15px;" id="deleteform">Delete</button> -->
 <div class="modal fade" id="newBooking" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -95,7 +97,9 @@
 <!--datatable script-->
 <script>
   $(document).ready(function() {
-      $('#example').DataTable ({
+      var editable = 0;
+      var row_data = 0;
+      $('#client').DataTable ({
           "processing": true,
           "ajax": {url: "/PerfectParty/getBooking",type:"GET", dataSrc: "data", "contentType":"application/json"},
           "columns": [
@@ -107,29 +111,49 @@
               {data: "VenueName"},
           ],
       } );
-      $("#example").css('cursor', 'pointer');
-      var table = $('#example').DataTable();
+      $("#client").css('cursor', 'pointer');
+      var table = $('#client').DataTable();
 
-      $('#example tbody').on( 'dblclick', 'tr', function () {
-          var row = table.row( this ).data();
-          var data1 = {"ID": row.ID,
-                       "ClientName": row.ClientName,
-                       "Date": row.Date,
-                       "SalesRep": row.SalesRep}
-          console.log(JSON.stringify({"args": data1}));
-          var data = $.ajax({
-              type:'POST',
-              url: "/PerfectParty/postbook",
-              data: {args:JSON.stringify(data1)},
-              success: function(resultData) {
-                  console.log("load in successful")
-              }
-          });
+      $('#button').click( function () {
+          table.row('.selected').remove().draw( false );
+      } );
+
+      $('#client tbody').on( 'click', 'tr', function () {
+          if ( $(this).hasClass('selected') ) {
+              editable = 0;
+              row_data = 0;
+              $(this).removeClass('selected');
+          }
+          else {
+              row_data = table.row( this ).data();
+              table.$('tr.selected').removeClass('selected');
+              $(this).addClass('selected');
+              editable = 1
+          }
       } );
 
       $('#button').click( function () {
           table.row('.selected').remove().draw( false );
       } );
+
+      $('#editform').click(function() {
+          if (editable == 0) {
+              alert('Please select a entry to edit');
+          }
+          else {
+              window.location.href =  "{{ url_for('pages.get_book') }}?booking_id=" + row_data.ID;
+          }
+      });
+
+      $('#deleteform').click(function() {
+          if (editable == 0) {
+              alert('Please select a entry to delete');
+          }
+          else {
+              $('#delete').modal('show');
+              document.getElementById('delete-id').value=row_data.ID;
+          }
+      });
   } );
 
 </script>

@@ -73,7 +73,7 @@
                     </li>
                     <li {% if onebook %}class="sidebar-dropdown active"{% endif %}>
                       <a href="{{ url_for('pages.booking') }}"
-                         {% if booking %}style="color:#16c7ff" {% endif %}>
+                         {% if booking %}style="color:#16c7ff"{% endif %}>
                         <i class="fa fa-book"></i>
                         <span>Booking</span>
                       </a>
@@ -81,7 +81,7 @@
                       <div class="sidebar-submenu" style="display: block;">
                         <ul>
                           <li>
-                            <a>{{ result["type"] }}</a>
+                            <a {% if onebook %}style="color:#16c7ff"{% endif %}>{{ result["type"] }}</a>
                           </li>
                         </ul>
                       </div>

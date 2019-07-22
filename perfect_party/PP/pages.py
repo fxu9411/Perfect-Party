@@ -115,7 +115,7 @@ def get_book():
         cursor.execute(sql)
         result = cursor.fetchone()
     print(result)
-    return render_template("onebook.html", booking=True, onebook=True, result=result)
+    return render_template("onebook.html", onebook=True, result=result)
 
 @pages.route("/postBooking", methods=['POST'])
 def get_id():
