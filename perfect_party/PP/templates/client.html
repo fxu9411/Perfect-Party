@@ -78,7 +78,6 @@
                                        placeholder="Canada">
                             </div>
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">
@@ -102,13 +101,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" action="{{ url_for('pages.add_client') }}" method="post">
+                    <form class="form-horizontal" action="{{ url_for('pages.edit_client') }}" method="post">
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="name">Name:</label>
                             <div class="col-sm-10">
                                 <input type="text" required="required" class="form-control" id="edit-name" name="name"
                                        placeholder="Feridun Hamdullahpur">
                             </div>
+                            <input type="hidden" class="form-control" id="client-id" name="id">
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="address">Address:</label>
@@ -149,7 +149,6 @@
                                        placeholder="Canada">
                             </div>
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">
@@ -211,13 +210,14 @@
         else {
             $('#edit').modal('show');
             document.getElementById('edit-name').value=row_data.ClientName;
-            document.getElementById('edit-str-num').value=row_data.Address;
-            document.getElementById('edit-str-name').value=row_data.Address;
-            document.getElementById('edit-unit').value=row_data.Address;
+            document.getElementById('edit-str-num').value=row_data.Street_Number;
+            document.getElementById('edit-str-name').value=row_data.Street_Name;
+            document.getElementById('edit-unit').value=row_data.Unit;
             document.getElementById('edit-postal').value=row_data.PostalCode;
             document.getElementById('edit-city').value=row_data.City;
             document.getElementById('edit-province').value=row_data.Province;
             document.getElementById('edit-country').value=row_data.Country;
+            document.getElementById('client-id').value=row_data.Client_ID;
             }
         });
     });
