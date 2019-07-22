@@ -7,9 +7,11 @@
   <table id="item" class="display" style="width:100%">
     <thead>
       <tr>
+        <th>ID</th>
         <th>Name</th>
-        <th>Price</th>
-        <th>Supplier</th>
+        <th>Supplier ID</th>
+        <th>Supplier Name</th>
+        <th>Type</th>
       </tr>
     </thead>
   </table>
@@ -19,16 +21,46 @@
 <!--datatable script-->
 
 <script>
+// $(document).ready(function() {
+//     var type= $({{item}}).val()
+//     console.log(jQuery.type(type))
+//     $('#item').DataTable( {
+//         "processing": true,
+//         "ajax": {url: "/PerfectParty/item/getitem?item={{ item }}",dataType:"json", dataSrc: "data", "contentType":"application/json"},
+//         "columns": [
+//             {data: "Name"},
+//             {data: "Price"},
+//             {data: "Supplier"},
+//         ],
+//     } );
+//     $("#item").css('cursor', 'pointer');
+//     var table = $('#item').DataTable();
+
+//     $('#item tbody').on( 'click', 'tr', function () {
+//         if ( $(this).hasClass('selected') ) {
+//             $(this).removeClass('selected');
+//         }
+//         else {
+//             table.$('tr.selected').removeClass('selected');
+//             $(this).addClass('selected');
+//         }
+//     } );
+
+//     $('#button').click( function () {
+//         table.row('.selected').remove().draw( false );
+//     } );
+// } );
+// $( window ).on( "load", setupData );
 $(document).ready(function() {
-    var type= $({{item}}).val()
-    console.log(jQuery.type(type))
     $('#item').DataTable( {
         "processing": true,
-        "ajax": {url: "/PerfectParty/item/getitem",dataType:"json", dataSrc: "data", "contentType":"application/json"},
+        "ajax": {url: "/PerfectParty/item/getitem?item={{item}}",dataType:"json", dataSrc: "data", "contentType":"application/json"},
         "columns": [
+            {data: "ID"},
             {data: "Name"},
-            {data: "Price"},
-            {data: "Supplier"},
+            {data: "Supplier ID"},
+            {data: "Supplier Name"},
+            {data: "Type"},
         ],
     } );
     $("#item").css('cursor', 'pointer');

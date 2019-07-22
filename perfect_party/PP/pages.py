@@ -227,21 +227,25 @@ def add_supplier():
 
 @pages.route("/item/getitem")
 def get_item():
+    item=request.args.get('item')
     with connection.cursor() as cursor:
-        sql = "SELECT item.name as item_name, item.price, supplier.name as supplier_name " \
+        sql = "SELECT *" \
               "FROM `perfect_party`.`item_option` as item " \
               "LEFT JOIN `perfect_party`.`supplier` as supplier " \
               "ON item.supplier_id = supplier.supplier_id " \
-              "WHERE type = 'food'"
+              f"WHERE type = '{item}'"
         cursor.execute(sql)
         result = cursor.fetchall()
 
     food_list = {}
     list_of_food = []
     for item in result:
-        obj = {'Name': item['item_name'],
-               'Price': float(item['price']),
-               'Supplier': item['supplier_name']}
+        print(item)
+        obj = {'ID': item['item_id'],
+               'Name': item['name'],
+               'Supplier ID': item['supplier.supplier_id'],
+               'Supplier Name': item['supplier.name'],
+               'Type': item['type']}
         list_of_food.append(obj)
 
     food_list['data'] = list_of_food
