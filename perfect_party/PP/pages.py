@@ -53,6 +53,27 @@ def get_booking():
     return jsonify(booking_list)
 
 
+@pages.route('/addBooking', methods=['POST'])
+def add_booking():
+    print(request.form)
+    name = request.form['name']
+    str_name = request.form['str-name']
+    str_number = request.form['str-number']
+    unit_number = request.form['unit'] if 'unit' in request.form else 'NULL'
+    city = request.form['city']
+    province = request.form['province']
+    country = request.form['country']
+    postal = request.form['postal']
+
+    # with connection.cursor() as cursor:
+    #     # Create a new record
+    #     sql = "INSERT INTO `booking`(client_name, street_number, street_name, unit_number, city, province, country, postal_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    #     cursor.execute(sql, (name, str_number, str_name, unit_number, city, province, country, postal))
+    # connection.commit()
+
+    return redirect(url_for('pages.booking'))
+
+
 @pages.route("/postbook", methods=['POST'])
 def post_book():
     args = json.loads(request.values.get("args"))
@@ -155,9 +176,20 @@ def get_client():
     client_list = {}
     list_of_client = []
     for item in result:
-        obj = {'ClientName': item['client_name'],
-               'Address': item['street_number'] + ' ' + item['street_name'],
-               'City': item['city'], 'Country': item['country'], 'PostalCode': item['postal_code']}
+        if item['unit_number'] == None:
+            obj = {'ClientName': item['client_name'],
+                   'Address': item['street_number'] + ' ' + item['street_name'],
+                   'City': item['city'],
+                   'Province': item['province'],
+                   'Country': item['country'],
+                   'PostalCode': item['postal_code']}
+        else:
+            obj = {'ClientName': item['client_name'],
+                   'Address': item['unit_number'] + '-' + item['street_number'] + ' ' + item['street_name'],
+                   'City': item['city'],
+                   'Province': item['province'],
+                   'Country': item['country'],
+                   'PostalCode': item['postal_code']}
         list_of_client.append(obj)
 
     client_list['data'] = list_of_client
@@ -276,6 +308,15 @@ def item(item):
         cursor.execute(sql)
         result = cursor.fetchall()
     return render_template("item.html", item=item, suppliers=result)
+
+
+def venue():
+    with connection.cursor() as cursor:
+        sql = "SELECT * " \
+              "FROM `venue` "
+        cursor.execute(sql)
+        result = cursor.fetchall()
+    return render_template("venue.html", venue=venue, venues=result)
 
 @pages.route("/item/food")
 def item_food():
