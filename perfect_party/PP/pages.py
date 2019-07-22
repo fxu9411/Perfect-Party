@@ -1,4 +1,5 @@
 from flask import jsonify, json
+from datetime import datetime
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
@@ -27,26 +28,42 @@ def booking():
         args = json.loads(request.values.get("args"))
         booking_id = int(args['Id'])
         return redirect(url_for('pages.one_book', Id=args['Id']))
-    return render_template("booking.html", booking=True)
+    with connection.cursor() as cursor:
+        sql = "SELECT * " \
+            "FROM `venue`"
+        cursor.execute(sql)
+        venues = cursor.fetchall()
+    with connection.cursor() as cursor:
+        sql = "SELECT * " \
+            "FROM `client`"
+        cursor.execute(sql)
+        clients = cursor.fetchall()
+    return render_template("booking.html", booking=True, venues=venues, clients=clients)
 
 
 @pages.route("/getBooking")
 def get_booking():
     with connection.cursor() as cursor:
-        sql = "SELECT booking.booking_id, client.client_name, DATE(booking.booking_date) as booking_date, booking.sales_rep " \
+        sql = "SELECT booking.booking_id, client.client_name, DATE(booking.booking_date) as booking_date, booking.sales_rep, " \
+              "DATE(event.event_date) as event_date, venue.venue_name " \
               "FROM `perfect_party`.`booking` as booking " \
               "LEFT JOIN `perfect_party`.`event` as event USING (event_id) " \
-              "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id "
+              "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id " \
+              "LEFT JOIN `perfect_party`.`venue` as venue ON event.venue_id = venue.venue_id "
         cursor.execute(sql)
         result = cursor.fetchall()
 
     booking_list = {}
     list_of_booking = []
     for item in result:
+        print(item)
         obj = {'ID': item['booking_id'],
                'ClientName': item['client_name'],
                'Date': str(item['booking_date']),
-               'SalesRep': item['sales_rep']}
+               'SalesRep': item['sales_rep'],
+               'Venue': item['sales_rep'],
+               'EventDate': str(item['event_date']),
+               'VenueName': str(item['venue_name']),}
         list_of_booking.append(obj)
 
     booking_list['data'] = list_of_booking
@@ -56,20 +73,29 @@ def get_booking():
 @pages.route('/addBooking', methods=['POST'])
 def add_booking():
     print(request.form)
-    name = request.form['name']
-    str_name = request.form['str-name']
-    str_number = request.form['str-number']
-    unit_number = request.form['unit'] if 'unit' in request.form else 'NULL'
-    city = request.form['city']
-    province = request.form['province']
-    country = request.form['country']
-    postal = request.form['postal']
+    tpe = request.form['type']
+    guests = request.form['guests']
+    budget = request.form['budget']
+    date = request.form['date']
+    venue_id = request.form['venue_id']
+    client_id = request.form['client_id']
+    sales_rep = request.form['sales_rep']
 
-    # with connection.cursor() as cursor:
-    #     # Create a new record
-    #     sql = "INSERT INTO `booking`(client_name, street_number, street_name, unit_number, city, province, country, postal_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-    #     cursor.execute(sql, (name, str_number, str_name, unit_number, city, province, country, postal))
-    # connection.commit()
+    with connection.cursor() as cursor:
+        # Create a new record
+        sql = "INSERT INTO `event`(venue_id, guest_number, event_date, budget, type) VALUES (%s, %s, %s, %s, %s)"
+        result = cursor.execute(sql, (venue_id, guests, date, budget, tpe))
+        event_id = connection.insert_id()
+    connection.commit()
+
+    print('event_id = ', event_id)
+    booking_date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+
+    with connection.cursor() as cursor:
+        # Create a new record
+        sql = "INSERT INTO `booking`(event_id, client_id, sales_rep, booking_date) VALUES (%s, %s, %s, %s)"
+        result = cursor.execute(sql, (event_id, client_id, sales_rep, booking_date))
+    connection.commit()
 
     return redirect(url_for('pages.booking'))
 

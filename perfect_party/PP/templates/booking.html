@@ -9,6 +9,8 @@
       <th>Client Name</th>
       <th>Booking Date</th>
       <th>Sales Rep</th>
+      <th>Event Date</th>
+      <th>Venue</th>
     </tr>
   </thead>
 </table>
@@ -27,57 +29,55 @@
       <div class="modal-body">
         <form class="form-horizontal" action="{{ url_for('pages.add_booking') }}" method="post">
           <div class="form-group">
-            <label class="control-label col-sm-3" for="name">Name:</label>
+            <label class="control-label col-sm-3" for="type">Name:</label>
             <div class="col-sm-10">
-              <input type="text" required="required" class="form-control" id="name" name="name" placeholder="John Doe">
+              <input type="text" required="required" class="form-control" id="type" name="type" placeholder="Smith's Wedding">
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-3" for="address">Address:</label>
-            <div class="col-sm-10 form-inline">
-              <input type="text" required="required" class="form-control col-sm-3" id="str-num" name="str-number"
-                     placeholder="Number">
-              <input type="text" required="required" class="form-control col-sm-7" id="str-name" name="str-name"
-                     placeholder="Street">
-              <input type="text" class="form-control col-sm-2" id="unit" name="unit" placeholder="Unit">
+            <label class="control-label col-sm-5" for="guests">Number of Guests:</label>
+            <div class="col-sm-10">
+              <input type="text" required="required" class="form-control" id="guests" name="guests" placeholder="0">
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-3" for="postal">Postal Code:</label>
+            <label class="control-label col-sm-3" for="budget">Budget:</label>
             <div class="col-sm-10">
-              <input type="text" required="required" class="form-control" id="postal" name="postal"
-                     placeholder="N2L 3G1">
+              <input type="text" required="required" class="form-control" id="budget" name="budget" placeholder="Budget (in CAD)">
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-3" for="city">City:</label>
+            <label class="control-label col-sm-3" for="date">Date:</label>
             <div class="col-sm-10">
-              <input type="text" required="required" class="form-control" id="city" name="city" placeholder="Waterloo">
+              <input type="text" class="datepicker" name="date">
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-3" for="province">Province:</label>
+            <label class="control-label col-sm-9">Venue:</label>
             <div class="col-sm-10">
-              <input type="text" required="required" class="form-control" id="province" name="province"
-                     placeholder="Ontario">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-3" for="country">Country:</label>
-            <div class="col-sm-10">
-              <input type="text" required="required" class="form-control" id="country" name="country"
-                     placeholder="Canada">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-9" for="postal">{{venue}} Venue:</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="sel1" name="venue_id" required="required">
+              <select class="form-control" name="venue_id" required="required">
                 <option value="" disabled selected>Select your option</option>
                 {% for venue in venues %}
                 <option value="{{ venue['venue_id'] }}">{{ venue['venue_name'] }}</option>
                 {% endfor %}
               </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-9">Client:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="client_id" required="required">
+                <option value="" disabled selected>Select your option</option>
+                {% for client in clients %}
+                <option value="{{ client['client_id'] }}">{{ client['client_name'] }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="sales_rep">Sales Rep:</label>
+            <div class="col-sm-10">
+              <input type="text" required="required" class="form-control" id="sales_rep" name="sales_rep" placeholder="Frank Xu">
             </div>
           </div>
       </div>
@@ -103,6 +103,8 @@
               {data: "ClientName"},
               {data: "Date"},
               {data: "SalesRep"},
+              {data: "EventDate"},
+              {data: "VenueName"},
           ],
       } );
       $("#example").css('cursor', 'pointer');
