@@ -182,14 +182,22 @@ def get_client():
                    'City': item['city'],
                    'Province': item['province'],
                    'Country': item['country'],
-                   'PostalCode': item['postal_code']}
+                   'PostalCode': item['postal_code'],
+                   'Unit': item['unit_number'],
+                   'Street_Number': item['street_number'],
+                   'Street_Name': item['street_name'],
+                   'Client_ID': item['client_id']}
         else:
             obj = {'ClientName': item['client_name'],
                    'Address': item['unit_number'] + '-' + item['street_number'] + ' ' + item['street_name'],
                    'City': item['city'],
                    'Province': item['province'],
                    'Country': item['country'],
-                   'PostalCode': item['postal_code']}
+                   'PostalCode': item['postal_code'],
+                   'Unit': item['unit_number'],
+                   'Street_Number': item['street_number'],
+                   'Street_Name': item['street_name'],
+                   'Client_ID': item['client_id']}
         list_of_client.append(obj)
 
     client_list['data'] = list_of_client
