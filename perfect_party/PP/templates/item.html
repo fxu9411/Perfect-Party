@@ -1,16 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>Supplier</h2>
+<h2 class="display-4">{{item}}</h2>
 <hr>
 <div class = "row"></div>
 <div class="container-fluid">
-  <table id="supplier" class="display" style="width:100%">
+  <table id="item" class="display" style="width:100%">
     <thead>
       <tr>
-        <th>Supplier ID</th>
         <th>Name</th>
-        <th>Phone Number</th>
-        <th>Type</th>
+        <th>Price</th>
+        <th>Supplier</th>
       </tr>
     </thead>
   </table>
@@ -18,9 +17,10 @@
 {% endblock %}
 {% block javascript %}
 <!--datatable script-->
+<!--
 <script>
 $(document).ready(function() {
-    $('#supplier').DataTable( {
+    $('#item').DataTable( {
         "processing": true,
         "ajax": {url: "/PerfectParty/getSupplier",dataType:"json", dataSrc: "data", "contentType":"application/json"},
         "columns": [
@@ -30,10 +30,10 @@ $(document).ready(function() {
             {data: "Type"}
         ],
     } );
-    $("#supplier").css('cursor', 'pointer');
-    var table = $('#supplier').DataTable();
+    $("#item").css('cursor', 'pointer');
+    var table = $('#item').DataTable();
 
-    $('#supplier tbody').on( 'click', 'tr', function () {
+    $('#item tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
         }
@@ -50,4 +50,4 @@ $(document).ready(function() {
 $( window ).on( "load", setupData );
 </script>
 {% endblock %}
-
+-->
