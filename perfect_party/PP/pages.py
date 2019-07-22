@@ -209,7 +209,7 @@ def get_supplier():
     return jsonify(supplier_list)
 
 def item(tpe):
-    return render_template("supplier.html")
+    return render_template("supplier.html", item=tpe, food=(tpe == 'food'))
 
 @pages.route("/item/food")
 def item_food():
@@ -217,7 +217,7 @@ def item_food():
 
 @pages.route("/item/decor")
 def item_decor():
-    return item('food')
+    return item('decor')
 
 @pages.route("/item/entertainment")
 def item_entertainment():

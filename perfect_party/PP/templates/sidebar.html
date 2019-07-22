@@ -50,21 +50,21 @@
             <span>Supplier</span>
           </a>
         </li>
-        <li class="sidebar-dropdown">
+        <li class="sidebar-dropdown {% if item %}active{% endif %}">
           <a href="#">
             <i class="fa fa-shopping-cart"></i>
             <span>Item</span>
           </a>
-          <div class="sidebar-submenu">
+          <div class="sidebar-submenu" {% if item %}style="display: block;"{% endif %}>
             <ul>
               <li>
-                <a href="{{ url_for('pages.item_food') }}">Food</a>
+                <a href="{{ url_for('pages.item_food') }}" {% if item == "food" %}style="color:#16c7ff"{% endif %}>Food</a>
               </li>
               <li>
-                <a href="{{ url_for('pages.item_decor') }}">Decor</a>
+                <a href="{{ url_for('pages.item_decor') }}" {% if item == "decor" %}style="color:#16c7ff"{% endif %}>Decor</a>
               </li>
               <li>
-                <a href="{{ url_for('pages.item_entertainment') }}">Entertainment</a>
+                <a href="{{ url_for('pages.item_entertainment') }}" {% if item == "entertainment" %}style="color:#16c7ff"{% endif %}>Entertainment</a>
               </li>
             </ul>
           </div>
