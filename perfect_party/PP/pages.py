@@ -272,6 +272,24 @@ def get_supplier():
 
     return jsonify(supplier_list)
 
+
+@pages.route('/editSupplier', methods=['POST'])
+def edit_supplier():
+    print(request.form)
+    name = request.form['name']
+    phone_number = request.form['phone']  # wait for the form
+    type = request.form['type']
+    id = request.form['id']
+
+    with connection.cursor() as cursor:
+        sql = "UPDATE `supplier` SET name = %s, phone_number = %s, type = %s " \
+              "WHERE supplier_id = %d;" % (repr(name), repr(phone_number), repr(type), int(id))
+        print(sql)
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
+    return redirect(url_for('pages.supplier'))
+
 @pages.route('/addSupplier', methods=['POST'])
 def add_supplier():
     print(request.form)
@@ -285,6 +303,20 @@ def add_supplier():
         cursor.execute(sql, (name, phone, tpe))
     connection.commit()
 
+    return redirect(url_for('pages.supplier'))
+
+
+@pages.route('/deleteSupplier', methods=['POST'])
+def delete_supplier():
+    print(request.form)
+    id = request.form['id']
+
+    with connection.cursor() as cursor:
+        sql = "DELETE FROM `supplier` WHERE supplier_id = %d;" % int(id)
+        print(sql)
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
     return redirect(url_for('pages.supplier'))
 
 @pages.route("/item/getitem")

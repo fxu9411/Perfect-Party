@@ -2,68 +2,159 @@
 {% block content %}
 <h2 class="display-4">Supplier</h2>
 <hr>
-<div class = "row"></div>
+<div class="row"></div>
 <table id="supplier" class="display" style="width:100%">
-  <thead>
+    <thead>
     <tr>
-      <th>Supplier ID</th>
-      <th>Name</th>
-      <th>Phone Number</th>
-      <th>Type</th>
+        <th>Supplier ID</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Type</th>
     </tr>
-  </thead>
+    </thead>
 </table>
+<hr>
+<!--Buttons-->
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addSupplier">+ Add Supplier</button>
+<button type="button" class="btn btn-success" style="padding-left:15px, padding-right=15px;" id="editform">Edit
+</button>
+<button type="button" class="btn btn-danger float-right" style="padding-left:15px; padding-right=15px;"
+        id="deleteform">
+    Delete
+</button>
+<!--Modals-->
 <div class="modal fade" id="addSupplier" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">New Supplier</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal" action="{{ url_for('pages.add_supplier') }}" method="post">
-          <div class="form-group">
-            <label class="control-label col-sm-3" for="name">Name:</label>
-            <div class="col-sm-10">
-              <input type="text" required="required" class="form-control" id="name" name="name" placeholder="McDonald's">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">New Supplier</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-4" for="phone">Phone Number:</label>
-            <div class="col-sm-10">
-              <input type="text" required="required" class="form-control" id="phone" name="phone" placeholder="xxx-xxx-xxxx">
+            <div class="modal-body">
+                <form class="form-horizontal" action="{{ url_for('pages.add_supplier') }}" method="post">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="name">Name:</label>
+                        <div class="col-sm-10">
+                            <input type="text" required="required" class="form-control" id="name" name="name"
+                                   placeholder="McDonald's">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="phone">Phone Number:</label>
+                        <div class="col-sm-10">
+                            <input type="text" required="required" class="form-control" id="phone" name="phone"
+                                   placeholder="xxx-xxx-xxxx">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="postal">Menu type</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="sel1" name="type" required="required">
+                                <option value="" disabled selected>Select your option</option>
+                                <option value="Food">Food</option>
+                                <option value="Decor">Decor</option>
+                                <option value="Entertainment">Entertainment</option>
+                            </select>
+                        </div>
+                    </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-4" for="postal">Menu type</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="sel1" name="type" required="required">
-                <option value="" disabled selected>Select your option</option>
-                <option value="Food">Food</option>
-                <option value="Decor">Decor</option>
-                <option value="Entertainment">Entertainment</option>
-              </select>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">Cancel
+                </button>
+                <!-- <button type="button" class="btn btn-primary" style="padding:5px 20px;" onclick="window.location.href='/PerfectParty'">Add</button> -->
+                <input type="submit" class="btn btn-primary" value="Submit"/>
             </div>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">Cancel</button>
-        <!-- <button type="button" class="btn btn-primary" style="padding:5px 20px;" onclick="window.location.href='/PerfectParty'">Add</button> -->
-        <input type="submit" class="btn btn-primary" value="Submit"/>
-      </div>
-      </form>
+            </form>
+        </div>
     </div>
-  </div>
+</div>
+<div class="modal fade" id="edit" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="{{ url_for('pages.edit_supplier') }}" method="post">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="name">Name:</label>
+                        <div class="col-sm-10">
+                            <input type="text" required="required" class="form-control" id="edit-name" name="name"
+                                   placeholder="McDonald's">
+                        </div>
+                        <input type="hidden" class="form-control" id="id" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="phone">Phone Number:</label>
+                        <div class="col-sm-10">
+                            <input type="text" required="required" class="form-control" id="edit-phone" name="phone"
+                                   placeholder="xxx-xxx-xxxx">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="postal">Menu type</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="edit-sell" name="type" required="required">
+                                <option value="" disabled selected>Select your option</option>
+                                <option value="Food">Food</option>
+                                <option value="Decor">Decor</option>
+                                <option value="Entertainment">Entertainment</option>
+                            </select>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">Cancel
+                </button>
+                <!-- <button type="button" class="btn btn-primary" style="padding:5px 20px;" onclick="window.location.href='/PerfectParty'">Add</button> -->
+                <input type="submit" class="btn btn-primary" value="Submit"/>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="delete" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this entry?
+                <form class="form-horizontal" action="{{ url_for('pages.delete_supplier') }}" method="post">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="delete-id" name="id">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">
+                    Cancel
+                </button>
+                <!-- <button type="button" class="btn btn-primary" style="padding:5px 20px;" onclick="window.location.href='/PerfectParty'">Add</button> -->
+                <input type="submit" class="btn btn-primary" value="Submit"/>
+            </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% block javascript %}
 <!--datatable script-->
 <script>
 $(document).ready(function() {
+    var editable = 0;
+    var row_data = 0;
     $('#supplier').DataTable( {
         "processing": true,
         "ajax": {url: "/PerfectParty/getSupplier",dataType:"json", dataSrc: "data", "contentType":"application/json"},
@@ -80,17 +171,45 @@ $(document).ready(function() {
     $('#supplier tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
+            editable == 0;
+            row_data = 0;
         }
         else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
+            editable = 1;
+            row_data = table.row( this ).data();
         }
     } );
 
     $('#button').click( function () {
         table.row('.selected').remove().draw( false );
     } );
-} );
-$( window ).on( "load", setupData );
+
+    $('#editform').click(function() {
+        if (editable == 0) {
+            alert('Please select a entry to edit');
+        }
+        else {
+            $('#edit').modal('show');
+            document.getElementById('edit-name').value=row_data['Name'];
+            document.getElementById('edit-phone').value=row_data['Phone Number'];
+            document.getElementById('id').value=row_data['Supplier ID'];
+            document.getElementById('edit-sell').value=row_data['Type'];
+            }
+        });
+
+        $('#deleteform').click(function() {
+        if (editable == 0) {
+            alert('Please select a entry to delete');
+        }
+        else {
+            $('#delete').modal('show');
+            document.getElementById('delete-id').value=row_data['Supplier ID'];
+            }
+        });
+});
+
+
 </script>
 {% endblock %}
