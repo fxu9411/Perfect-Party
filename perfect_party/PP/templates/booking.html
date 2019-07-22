@@ -42,11 +42,11 @@
           console.log(JSON.stringify({"args": data1}));
           var data = $.ajax({
               type:'POST',
-              url: "/PerfectParty/onebook",
+              url: "/PerfectParty/postbook",
               data: {args:JSON.stringify(data1)},
               success: function(resultData) {
                   console.log("load in successful")
-                  location.href="/PerfectParty/onebook"}
+              }
           });
       } );
 

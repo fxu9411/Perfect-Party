@@ -1,5 +1,4 @@
-
-from flask import jsonify,json
+from flask import jsonify, json
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
@@ -16,17 +15,20 @@ connection = pymysql.connect(host='127.0.0.1',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
+
 # [START list]
 def main_page():
     return booking
 
-@pages.route("/booking", methods=['POST','GET'])
+
+@pages.route("/booking", methods=['POST', 'GET'])
 def booking():
     if request.method == 'POST':
         args = json.loads(request.values.get("args"))
         booking_id = int(args['Id'])
-        return redirect(url_for('pages.one_book',Id=args['Id']))
+        return redirect(url_for('pages.one_book', Id=args['Id']))
     return render_template("booking.html", booking=True)
+
 
 @pages.route("/getBooking")
 def get_booking():
@@ -41,7 +43,7 @@ def get_booking():
     booking_list = {}
     list_of_booking = []
     for item in result:
-        obj = {'ID': item['booking_id'],
+        obj = {'Id': item['booking_id'],
                'ClientName': item['client_name'],
                'Date': str(item['booking_date']),
                'SalesRep': item['sales_rep']}
@@ -50,29 +52,30 @@ def get_booking():
     booking_list['data'] = list_of_booking
     return jsonify(booking_list)
 
-@pages.route("/onebook", methods=['POST','GET'])
-def one_book():
-    if request.method == 'POST':
-        args = json.loads(request.values.get("args"))
-        booking_id = int(args['Id'])
-        print(booking_id)
-        return jsonify({'data': args['Id']})
-    else:
-        return render_template('onebook.html')
 
+@pages.route("/postbook", methods=['POST'])
+def post_book():
+    args = json.loads(request.values.get("args"))
+    booking_id = args['Id']
+    print(booking_id)
+    return get_book(booking_id)
+
+
+@pages.route("/onebook")
+def get_book(id):
+    return render_template('onebook.html',Id=id)
 
 @pages.route("/postBooking", methods=['POST'])
 def get_id():
-
     args = json.loads(request.values.get("args"))
-
     booking_id = int(args['Id'])
-    return jsonify(client_list)
+    return jsonify(booking_id)
 
 
 @pages.route("/venue")
 def venue():
     return render_template("venue.html", venue=True)
+
 
 @pages.route("/schema")
 def schema():
@@ -89,6 +92,7 @@ def schema():
             cols = cursor.fetchall()
         s.append({table: cols})
     return jsonify(s)
+
 
 @pages.route("/getVenue")
 def get_venues():
@@ -111,6 +115,7 @@ def get_venues():
     venue_list['data'] = list_of_venue
     return jsonify(venue_list)
 
+
 @pages.route('/addVenue', methods=['POST'])
 def add_venue():
     print(request.form)
@@ -132,9 +137,11 @@ def add_venue():
 
     return redirect(url_for('pages.venue'))
 
+
 @pages.route("/client")
 def client():
     return render_template("client.html", client=True)
+
 
 @pages.route("/getClient")
 def get_client():
@@ -153,6 +160,7 @@ def get_client():
 
     client_list['data'] = list_of_client
     return jsonify(client_list)
+
 
 @pages.route('/addClient', methods=['POST'])
 def add_client():
@@ -174,9 +182,11 @@ def add_client():
 
     return redirect(url_for('pages.client'))
 
+
 @pages.route("/supplier")
 def supplier():
     return render_template("supplier.html", supplier=True)
+
 
 @pages.route("/getSupplier")
 def get_supplier():
@@ -198,45 +208,45 @@ def get_supplier():
     return jsonify(supplier_list)
 
 
-# @pages.route(/get_item)
-# def get_item(item_type):
-#     with connection.cursor() as cursor:
-#         sql = "SELECT item.name as item_name, item.price, supplier.name as supplier_name " \
-#               "FROM `perfect_party`.`item_option` as item " \
-#               "LEFT JOIN `perfect_party`.`supplier` as supplier " \
-#               "ON item.supplier_id = supplier.supplier_id " \
-#               "WHERE type = %s", %tpe
-#         cursor.execute(sql)
-#         result = cursor.fetchall()
-#
-#     food_list = {}
-#     list_of_food = []
-#     for item in result:
-#         obj = {'Name': item['item_name'],
-#                'Price': float(item['price']),
-#                'Supplier': item['supplier_name']}
-#         list_of_food.append(obj)
-#
-#     food_list['data'] = list_of_food
-#
-#     return jsonify(food_list)
-
 def item(tpe):
-    return render_template("item.html", item=tpe)
+    return render_template("item.html", item=tpe, food=(tpe == 'food'))
+
 
 @pages.route("/item/food")
 def item_food():
-    return item('Food')
+    with connection.cursor() as cursor:
+        sql = "SELECT item.name as item_name, item.price, supplier.name as supplier_name " \
+              "FROM `perfect_party`.`item_option` as item " \
+              "LEFT JOIN `perfect_party`.`supplier` as supplier " \
+              "ON item.supplier_id = supplier.supplier_id " \
+              "WHERE type = 'food'"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+    food_list = {}
+    list_of_food = []
+    for item in result:
+        obj = {'Name': item['item_name'],
+               'Price': float(item['price']),
+               'Supplier': item['supplier_name']}
+        list_of_food.append(obj)
+
+    food_list['data'] = list_of_food
+
+    return jsonify(food_list)
+
 
 @pages.route("/item/decor")
 def item_decor():
     return item('Decor')
 
+
 @pages.route("/item/entertainment")
 def item_entertainment():
     return item('Entertainment')
 
+
 @pages.route("/myaccount")
 def myaccount():
-    token = request.args.get('page_token',None)
+    token = request.args.get('page_token', None)
     return render_template("myaccount.html")
