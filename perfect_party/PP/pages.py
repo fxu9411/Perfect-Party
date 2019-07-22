@@ -208,12 +208,8 @@ def get_supplier():
     return jsonify(supplier_list)
 
 
-def item(tpe):
-    return render_template("item.html", item=tpe, food=(tpe == 'food'))
-
-
-@pages.route("/item/food")
-def item_food():
+@pages.route("/item/getitem")
+def get_item():
     with connection.cursor() as cursor:
         sql = "SELECT item.name as item_name, item.price, supplier.name as supplier_name " \
               "FROM `perfect_party`.`item_option` as item " \
@@ -234,6 +230,13 @@ def item_food():
     food_list['data'] = list_of_food
 
     return jsonify(food_list)
+
+def item(tpe):
+    return render_template("item.html", item=tpe, food=(tpe == 'food'))
+
+@pages.route("/item/food")
+def item_food():
+    return item('Food')
 
 
 @pages.route("/item/decor")
