@@ -1,0 +1,120 @@
+<a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+  <i class="fas fa-bars"></i>
+</a>
+
+<nav id="sidebar" class="sidebar-wrapper">
+  <div class="sidebar-content">
+    <div class="sidebar-brand">
+      <a href="#">perfect party</a>
+    </div>
+    <div class="sidebar-header">
+      <div class="user-info">
+        <span class="user-name">Jhon
+          <strong>Smith</strong>
+        </span>
+        <span class="user-role">Administrator</span>
+        <span class="user-status">
+          <i class="fa fa-circle"></i>
+          <span>Online</span>
+        </span>
+      </div>
+    </div>
+    <!-- sidebar-header  -->
+    <!-- sidebar-search  -->
+    <div class="sidebar-menu">
+      <ul>
+        <li class="header-menu">
+          <span>General</span>
+        </li>
+        <li>
+          <a href="{{ url_for('pages.booking') }}" {% if booking %}style="color:#16c7ff"{% endif %}>
+            <i class="fa fa-book"></i>
+            <span>Booking</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('pages.client') }}" {% if client %}style="color:#16c7ff"{% endif %}>
+            <i class="fa fa-address-book"></i>
+            <span>Client</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('pages.venue') }}" {% if venue %}style="color:#16c7ff"{% endif %}>
+            <i class="fa fa-map-signs"></i>
+            <span>Venue</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('pages.supplier') }}" {% if supplier %}style="color:#16c7ff"{% endif %}>
+            <i class="fa fa-truck"></i>
+            <span>Supplier</span>
+          </a>
+        </li>
+        <li class="sidebar-dropdown">
+          <a href="#">
+            <i class="fa fa-shopping-cart"></i>
+            <span>Item</span>
+          </a>
+          <div class="sidebar-submenu">
+            <ul>
+              <li>
+                <a href="{{ url_for('pages.item_food') }}">Food</a>
+              </li>
+              <li>
+                <a href="{{ url_for('pages.item_decor') }}">Decor</a>
+              </li>
+              <li>
+                <a href="{{ url_for('pages.item_entertainment') }}">Entertainment</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="header-menu">
+          <span>Other</span>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa fa-book"></i>
+            <span>Documentation</span>
+            <span class="badge badge-pill badge-primary">Beta</span>
+          </a>
+        </li>
+        <li>
+          <a href="myaccount">
+            <i class="fa fa-calendar"></i>
+            <span>My Account</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="fa fa-user-times"></i>
+            <span>Log Out</span>
+          </a>
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+               aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Logging Out
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding:5px 20px;">No</button>
+                  <button type="button" class="btn btn-primary" style="padding:5px 20px;" onclick="window.location.href='/PerfectParty'">Yes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- sidebar-menu  -->
+  </div>
+  <!-- sidebar-content  -->
+</nav>
+<!-- sidebar-wrapper  -->
