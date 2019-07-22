@@ -212,7 +212,26 @@ def item(tpe):
 
 @pages.route("/item/food")
 def item_food():
-    return item('Food')
+    with connection.cursor() as cursor:
+        sql = "SELECT item.name as item_name, item.price, supplier.name as supplier_name " \
+              "FROM `perfect_party`.`item_option` as item " \
+              "LEFT JOIN `perfect_party`.`supplier` as supplier " \
+              "ON item.supplier_id = supplier.supplier_id " \
+              "WHERE type = 'food'"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+    food_list = {}
+    list_of_food = []
+    for item in result:
+        obj = {'Name': item['item_name'],
+               'Price': float(item['price']),
+               'Supplier': item['supplier_name']}
+        list_of_food.append(obj)
+
+    food_list['data'] = list_of_food
+
+    return jsonify(food_list)
 
 @pages.route("/item/decor")
 def item_decor():
