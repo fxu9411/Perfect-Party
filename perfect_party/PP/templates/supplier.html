@@ -1,90 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
-    <title>Perfect Party</title>
-
-
-    <!-- Jquery-->
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-
-  <!-- bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-</head>
-
-<body>
-<div class="page-wrapper chiller-theme toggled">
-  {% include 'sidebar.html' %}
-  {% block title %}nav_supplier{% endblock %}
-  <main class="page-content">
-    <h2 class="display-4">Supplier</h2>
-    <hr>
-    <div class = "row"></div>
-    <div class="container-fluid">
-      <table id="supplier" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Supplier ID</th>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <th>Type</th>
-            </tr>
-        </thead>
-    </table>
-    </div>
-
-  </main>
-  <!-- page-content" -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>Supplier</h2>
+<hr>
+<div class = "row"></div>
+<div class="container-fluid">
+  <table id="supplier" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Supplier ID</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+  </table>
 </div>
-<!-- page-wrapper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-
-<!-- datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" ref="stylesheet">
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-</body>
-
-</html>
-
-{% include 'sidebar-footer.html' %}
-
-<!--datatable script-->
-<!--<script>-->
-<!--$(document).ready(function() {-->
-    <!--var table = $('#example').DataTable();-->
-
-    <!--$('#example tbody').on( 'click', 'tr', function () {-->
-        <!--if ( $(this).hasClass('selected') ) {-->
-            <!--$(this).removeClass('selected');-->
-        <!--}-->
-        <!--else {-->
-            <!--table.$('tr.selected').removeClass('selected');-->
-            <!--$(this).addClass('selected');-->
-        <!--}-->
-    <!--} );-->
-
-    <!--$('#button').click( function () {-->
-        <!--table.row('.selected').remove().draw( false );-->
-    <!--} );-->
-<!--} );-->
-
-<!--</script>-->
-
+{% endblock %}
+{% block javascript %}
 <!--datatable script-->
 <script>
 $(document).ready(function() {
@@ -117,3 +49,4 @@ $(document).ready(function() {
 } );
 $( window ).on( "load", setupData );
 </script>
+{% endblock %}
