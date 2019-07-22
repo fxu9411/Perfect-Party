@@ -99,24 +99,6 @@ def get_id():
 def venue():
     return render_template("venue.html", venue=True)
 
-
-@pages.route("/schema")
-def schema():
-    with connection.cursor() as cursor:
-        sql = "SHOW TABLES"
-        cursor.execute(sql)
-        tables = cursor.fetchall()
-    s = []
-    for row in tables:
-        table = row["Tables_in_perfect_party"]
-        with connection.cursor() as cursor:
-            sql = f'DESCRIBE `{table}`'
-            cursor.execute(sql)
-            cols = cursor.fetchall()
-        s.append({table: cols})
-    return jsonify(s)
-
-
 @pages.route("/getVenue")
 def get_venues():
     with connection.cursor() as cursor:
@@ -238,20 +220,30 @@ def edit_client():
     postal = request.form['postal']
     id = request.form['id']
 
-    '''
     with connection.cursor() as cursor:
-        # Create a new record
-        sql = "INSERT INTO `client`(client_name, street_number, street_name, unit_number, city, province, country, postal_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-        cursor.execute(sql, (name, str_number, str_name, unit_number, city, province, country, postal))
-    connection.commit()
-    '''
-
+        sql = "UPDATE `client` SET client_name = %s, street_number = %s, street_name = %s, " \
+              "unit_number = %s, city = %s, province = %s, country = %s, postal_code = %s " \
+              "WHERE client_id = %d;" % (repr(name), repr(str_number), repr(str_name), repr(unit_number),
+                                         repr(city), repr(province), repr(country), repr(postal), int(id))
+        print(sql)
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
     return redirect(url_for('pages.client'))
 
 @pages.route('/deleteClient', methods=['POST'])
 def delete_client():\
     #implementation here
     print(request.form)
+    id = request.form['id']
+
+    with connection.cursor() as cursor:
+        sql = "DELETE FROM `client` WHERE client_id = %d;" % int(id)
+        print(sql)
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
+
     return redirect(url_for('pages.client'))
 
 
@@ -348,13 +340,13 @@ def item(item):
     return render_template("item.html", item=item, suppliers=result)
 
 
-def venue():
-    with connection.cursor() as cursor:
-        sql = "SELECT * " \
-              "FROM `venue` "
-        cursor.execute(sql)
-        result = cursor.fetchall()
-    return render_template("venue.html", venue=venue, venues=result)
+# def venue():
+#     with connection.cursor() as cursor:
+#         sql = "SELECT * " \
+#               "FROM `venue` "
+#         cursor.execute(sql)
+#         result = cursor.fetchall()
+#     return render_template("venue.html", venue=venue, venues=result)
 
 @pages.route("/item/food")
 def item_food():
@@ -375,3 +367,20 @@ def item_entertainment():
 def myaccount():
     token = request.args.get('page_token', None)
     return render_template("myaccount.html")
+
+
+@pages.route("/schema")
+def schema():
+    with connection.cursor() as cursor:
+        sql = "SHOW TABLES"
+        cursor.execute(sql)
+        tables = cursor.fetchall()
+    s = []
+    for row in tables:
+        table = row["Tables_in_perfect_party"]
+        with connection.cursor() as cursor:
+            sql = f'DESCRIBE `{table}`'
+            cursor.execute(sql)
+            cols = cursor.fetchall()
+        s.append({table: cols})
+    return jsonify(s)
