@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-sm-6">
             <h5 class="display-5" style="color:#4682B4">Event Information</h5>
-            <table class="table table-user-information">
+            <table class="table table-user-information table-bordered">
               <tr>
                 <th>Event Name</th>
                 <td>{{ result.type }}</td>
@@ -34,7 +34,7 @@
           </div>
           <div class="col-sm-6">
             <h5 class="display-5" style="color:#4682B4">Booking Information</h5>
-            <table class="table table-user-information">
+            <table class="table table-user-information table-bordered">
               <tr>
                 <th>Booking ID:</th>
                 <td>{{ result.booking_id }}</td>
@@ -56,13 +56,61 @@
         </div>
         <!-- <input type="submit" class="btn btn-info"  style="width:140px" value="Edit"/> -->
       </form>
-      <a class="btn btn-secondary" href="{{url_for('pages.booking')}}" role="button">Back</a>
-    <button type="button" class="btn btn-info">Edit Info</button>
+      <button type="button" class="border-left border-right btn btn-info float-right">Edit Info</button>
+      <a class="border-left border-right btn btn-secondary float-right" href="{{url_for('pages.booking')}}" role="button">Back</a>
     </div>
   </div>
-  <hr>
-  <div></div>
-  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewInvoice">View Invoice</button>
+
+  <h5 class="display-5" style="color:#4682B4">Ordered Items</h5>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Ordered On</th>
+        <th>Category</th>
+        <th>Item Name</th>
+        <th>Supplier</th>
+        <th>Price per Item</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>2019-07-23</th>
+        <td>Food</td>
+        <td>Pizza</td>
+        <td>Domino's Pizza</td>
+        <td>9.99</td>
+        <td>5</td>
+        <td>49.95</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>2019-07-23</th>
+        <td>Decoration</td>
+        <td>Shiny Red Balloon</td>
+        <td>Terraria Inc.</td>
+        <td>0.54</td>
+        <td>10</td>
+        <td>5.40</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>2019-07-23</th>
+        <td>Entertainment</td>
+        <td>C418 Music</td>
+        <td>Mojang Inc.</td>
+        <td>6.99</td>
+        <td>1</td>
+        <td>6.99</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="button" class="btn btn-info">Place Order</button>
+  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#viewInvoice">View Invoice</button>
   <div class="modal fade bd-example-modal-lg" id="viewInvoice" tabindex="-1" role="dialog"
        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 1000px">
