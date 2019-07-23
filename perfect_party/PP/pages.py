@@ -33,11 +33,13 @@ def booking():
               "FROM `venue`"
         cursor.execute(sql)
         venues = cursor.fetchall()
+        cursor.close()
     with connection.cursor() as cursor:
         sql = "SELECT * " \
               "FROM `client`"
         cursor.execute(sql)
         clients = cursor.fetchall()
+        cursor.close()
     return render_template("booking.html", booking=True, venues=venues, clients=clients)
 
 
@@ -52,6 +54,8 @@ def get_booking():
               "LEFT JOIN `perfect_party`.`venue` as venue ON event.venue_id = venue.venue_id "
         cursor.execute(sql)
         result = cursor.fetchall()
+        cursor.close()
+
 
     booking_list = {}
     list_of_booking = []
@@ -114,6 +118,7 @@ def get_book():
              f"WHERE `booking_id`='{booking_id}' "
         cursor.execute(sql)
         result = cursor.fetchone()
+        cursor.close()
     print(result)
     return render_template("onebook.html", onebook=True, result=result)
 
@@ -136,6 +141,7 @@ def get_venues():
         sql = "SELECT * FROM `venue`"
         cursor.execute(sql)
         result = cursor.fetchall()
+        cursor.close()
 
     venue_list = {}
     list_of_venue = []
@@ -241,6 +247,7 @@ def get_client():
         sql = "SELECT * FROM `client`"
         cursor.execute(sql)
         result = cursor.fetchall()
+        cursor.close()
 
     client_list = {}
     list_of_client = []
@@ -289,6 +296,7 @@ def add_client():
         # Create a new record
         sql = "INSERT INTO `client`(client_name, street_number, street_name, unit_number, city, province, country, postal_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
         cursor.execute(sql, (name, str_number, str_name, unit_number, city, province, country, postal))
+        cursor.close()
     connection.commit()
 
     return redirect(url_for('pages.client'))
@@ -346,6 +354,7 @@ def get_supplier():
         sql = "SELECT * FROM `supplier`"
         cursor.execute(sql)
         result = cursor.fetchall()
+        cursor.close()
 
     supplier_list = {}
     list_of_supplier = []
@@ -390,7 +399,8 @@ def add_supplier():
         # Create a new record
         sql = "INSERT INTO `supplier`(name, phone_number, type) VALUES (%s, %s, %s)"
         cursor.execute(sql, (name, phone, tpe))
-    connection.commit()
+        connection.commit()
+        cursor.close()
 
     return redirect(url_for('pages.supplier'))
 
@@ -406,6 +416,7 @@ def delete_supplier():
         cursor.execute(sql)
         connection.commit()
         cursor.close()
+
     return redirect(url_for('pages.supplier'))
 
 
@@ -420,6 +431,7 @@ def get_item():
             f"WHERE item.type = '{item}'"
         cursor.execute(sql)
         result = cursor.fetchall()
+        cursor.close()
 
     food_list = {}
     list_of_food = []
@@ -439,17 +451,18 @@ def get_item():
 
 @pages.route('/addItem', methods=['POST'])
 def add_item():
-    print(request.form)
     item = request.args.get('item')
     name = request.form['name']
     price = request.form['price']
     supplier_id = request.form['supplier_id']
 
     with connection.cursor() as cursor:
-        # Create a new record
-        sql = "INSERT INTO `item_option`(name, price, supplier_id) VALUES (%s, %s, %s)"
-        cursor.execute(sql, (name, price, supplier_id))
-    connection.commit()
+        sql = "INSERT INTO `item_option` (name, price, supplier_id, type) " \
+              "VALUES ({0}, {1}, {2}, {3})".format(repr(name), float(price), supplier_id, repr(item))
+        print(sql)
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
 
     return redirect(url_for(f'pages.item_{item.lower()}'))
 
@@ -497,6 +510,7 @@ def item(item):
             f"WHERE type='{item}'"
         cursor.execute(sql)
         result = cursor.fetchall()
+        cursor.close()
     return render_template("item.html", item=item, suppliers=result)
 
 
@@ -521,6 +535,7 @@ def schema():
         sql = "SHOW TABLES"
         cursor.execute(sql)
         tables = cursor.fetchall()
+        cursor.close()
     s = []
     for row in tables:
         table = row["Tables_in_perfect_party"]
@@ -539,6 +554,7 @@ def myaccount():
         sql = "SELECT * FROM `perfect_party`.`account` as account WHERE account_id = {0}".format(account_id)
         cursor.execute(sql)
         result = cursor.fetchone()
+        cursor.close()
     return render_template("myaccount.html", result=result)
 
 
@@ -571,5 +587,6 @@ def update_account():
                                                        account_id=account_id)
         print(sql)
         cursor.execute(sql)
+        cursor.close()
 
     return redirect(url_for("pages.myaccount", account_id=account_id))
