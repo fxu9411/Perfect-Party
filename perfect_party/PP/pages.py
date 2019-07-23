@@ -417,7 +417,7 @@ def get_item():
               "FROM `perfect_party`.`item_option` as item " \
               "LEFT JOIN `perfect_party`.`supplier` as supplier " \
               "ON item.supplier_id = supplier.supplier_id " \
-            f"WHERE type = '{item}'"
+            f"WHERE item.type = '{item}'"
         cursor.execute(sql)
         result = cursor.fetchall()
 
