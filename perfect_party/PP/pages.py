@@ -532,19 +532,44 @@ def schema():
     return jsonify(s)
 
 
-@pages.route("/myaccount", methods=['POST'])
+@pages.route("/myaccount", methods=['POST', 'GET'])
 def myaccount():
     account_id = request.args['account_id']
     with connection.cursor() as cursor:
         sql = "SELECT * FROM `perfect_party`.`account` as account WHERE account_id = {0}".format(account_id)
         cursor.execute(sql)
         result = cursor.fetchone()
-
     return render_template("myaccount.html", result=result)
 
 
 @pages.route("/editAccount", methods=['POST'])
 def edit_account():
-    name = request.form['name']
+    result = request.form
     print(request.form)
-    return render_template("editaccount.html")
+    return render_template("editaccount.html", result=result)
+
+
+@pages.route("/updateAccount", methods=['POST'])
+def update_account():
+    result = request.form
+    print(result)
+    account_id = result['account_id']
+
+    with connection.cursor() as cursor:
+        sql = "UPDATE `perfect_party`.`account` \n" \
+              "SET name = {name}, birthday = {birthday}, gender = {gender}, \n" \
+              "address = {address}, mobile_phone_number = {mobile}, home_phone_number = {home}, \n" \
+              "emergency_contact_name = {ename}, emergency_contact_number = {enumber} \n" \
+              "WHERE account_id = {account_id}".format(name=repr(result['name']),
+                                                       birthday=repr(result['birthday']),
+                                                       gender=repr(result['gender']),
+                                                       address=repr(result['address']),
+                                                       mobile=repr(result['mobile_phone_number']),
+                                                       home=repr(result['home_phone_number']),
+                                                       ename=repr(result['emergency_contact_name']),
+                                                       enumber=repr(result['emergency_contact_number']),
+                                                       account_id=account_id)
+        print(sql)
+        cursor.execute(sql)
+
+    return redirect(url_for("pages.myaccount", account_id=account_id))

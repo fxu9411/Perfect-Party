@@ -4,15 +4,16 @@
 <hr>
 <div class="row">
     <div class="col-md-10 ">
-        <form class="form-horizontal">
+        <form class="form-horizontal" action="{{ url_for('pages.update_account') }}" method="post">
             <fieldset>
                 <div class="form-group">
                     <label class="col-md-4 control-label">Name (Full name)</label>
                     <div class="col-md-4">
                         <div class="input-group">
                             <input id="name" name="name" type="text"
-                                   placeholder="Name (Full name)" class="form-control input-md">
+                                   placeholder="Name (Full name)" class="form-control input-md" value="{{result.name}}">
                         </div>
+                        <input type="hidden" name="account_id" value="{{result.account_id}}"/>
 
                     </div>
 
@@ -23,7 +24,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <input id="birthday" name="birthday" type="text" placeholder="YYYY-MM-DD"
-                                   class="form-control input-md">
+                                   class="form-control input-md" value="{{result.birthday}}">
                         </div>
                     </div>
                 </div>
@@ -33,15 +34,18 @@
                     <label class="col-md-4 control-label">Gender</label>
                     <div class="col-md-4">
                         <label class="radio-inline" for="Gender-0">
-                            <input type="radio" name="Gender" id="Gender-0" value="1" checked="checked">
+                            <input type="radio" name="gender" id="Gender-0" value="Male" {%if
+                                   result.gender=="Male"%}checked="checked" {%endif%}}>
                             Male
                         </label>
                         <label class="radio-inline" for="Gender-1">
-                            <input type="radio" name="Gender" id="Gender-1" value="2">
+                            <input type="radio" name="gender" id="Gender-1" value="Female" {%if
+                                   result.gender=="Female"%}checked="checked" {%endif%}}>
                             Female
                         </label>
                         <label class="radio-inline" for="Gender-2">
-                            <input type="radio" name="Gender" id="Gender-2" value="3">
+                            <input type="radio" name="gender" id="Gender-2" value="Other" {%if
+                                   result.gender=="Other"%}checked="checked" {%endif%}}>
                             Other
                         </label>
                     </div>
@@ -53,7 +57,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <input id="address" name="address" type="text" placeholder=""
-                                   class="form-control input-md">
+                                   class="form-control input-md" value="{{result.address}}">
                         </div>
                     </div>
                 </div>
@@ -63,8 +67,9 @@
                     <label class="col-md-4 control-label">Mobile Phone Number</label>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input id="mobile_phone_number" name="mobile_phone_number" type="text" placeholder="xxx-xxx-xxxx"
-                                   class="form-control input-md">
+                            <input id="mobile_phone_number" name="mobile_phone_number" type="text"
+                                   placeholder="xxx-xxx-xxxx"
+                                   class="form-control input-md" value="{{result.mobile_phone_number}}">
                         </div>
                     </div>
                 </div>
@@ -74,8 +79,9 @@
                     <label class="col-md-4 control-label">Home Phone Number</label>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input id="home_phone_number" name="home_phone_number" type="text" placeholder="xxx-xxx-xxxx"
-                                   class="form-control input-md">
+                            <input id="home_phone_number" name="home_phone_number" type="text"
+                                   placeholder="xxx-xxx-xxxx"
+                                   class="form-control input-md" value="{{result.home_phone_number}}">
                         </div>
                     </div>
                 </div>
@@ -86,7 +92,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <input id="emergency_contact_name" name="emergency_contact_name" type="text" placeholder=""
-                                   class="form-control input-md">
+                                   class="form-control input-md" value="{{result.emergency_contact_name}}">
                         </div>
                     </div>
                 </div>
@@ -96,8 +102,9 @@
                     <label class="col-md-4 control-label">Emergency Contact Number</label>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input id="emergency_contact_number" name="emergency_contact_number" type="text" placeholder=""
-                                   class="form-control input-md">
+                            <input id="emergency_contact_number" name="emergency_contact_number" type="text"
+                                   placeholder=""
+                                   class="form-control input-md" value="{{result.emergency_contact_number}}">
                         </div>
                     </div>
                 </div>
@@ -106,8 +113,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label"></label>
                     <div class="col-md-4">
-                        <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span>
-                            Submit</a>
+                        <input type="submit" class="btn btn-info" style="width:140px" value="Update"/>
                         <a href="#" class="btn btn-danger" value=""><span
                                 class="glyphicon glyphicon-remove-sign"></span>Go Back</a>
 
