@@ -110,7 +110,7 @@ def get_book():
     print('booking_id = ', booking_id)
     with connection.cursor() as cursor:
         sql = "SELECT booking.booking_id, client.client_name, DATE(booking.booking_date) as booking_date, booking.sales_rep, " \
-              "DATE(event.event_date) as event_date, venue.venue_name, event.type " \
+              "DATE(event.event_date) as event_date, venue.venue_name, event.type, event.guest_number, event.budget " \
               "FROM `perfect_party`.`booking` as booking " \
               "LEFT JOIN `perfect_party`.`event` as event USING (event_id) " \
               "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id " \
