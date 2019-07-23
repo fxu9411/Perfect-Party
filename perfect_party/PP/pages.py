@@ -150,6 +150,7 @@ def get_venues():
             obj = {'VenueName': item['venue_name'],
                    'Address': item['street_number'] + ' ' + item['street_name'],
                    'City': item['city'],
+                   'Province': item['province'],
                    'Country': item['country'],
                    'PostalCode': item['postal_code'],
                    'Price': float(item['price']),
@@ -161,6 +162,7 @@ def get_venues():
             obj = {'VenueName': item['venue_name'],
                    'Address': item['unit_number'] + '-' + item['street_number'] + ' ' + item['street_name'],
                    'City': item['city'],
+                   'Province': item['province'],
                    'Country': item['country'],
                    'PostalCode': item['postal_code'],
                    'Price': float(item['price']),
@@ -555,7 +557,7 @@ def myaccount():
         cursor.execute(sql)
         result = cursor.fetchone()
         cursor.close()
-    return render_template("myaccount.html", result=result)
+    return render_template("myaccount.html", result=result, myaccount=True)
 
 
 @pages.route("/editAccount", methods=['POST'])

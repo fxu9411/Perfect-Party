@@ -56,10 +56,10 @@
             </div>
             <div class="sidebar-header">
                 <div class="user-info">
-              <span class="user-name">Jhon
-                <strong>Smith</strong>
+              <span class="user-name">Tiger
+                <strong>Woods</strong>
               </span>
-                    <span class="user-role">Administrator</span>
+                    <span class="user-role">Golf Player</span>
                     <span class="user-status">
                 <i class="fa fa-circle"></i>
                 <span>Online</span>
@@ -141,7 +141,7 @@
                     </li>
                     <li>
                         <form name='account' action="{{ url_for('pages.myaccount') }}?account_id={{1}}" method="post">
-                            <a>
+                            <a {% if myaccount %}style="color:#16c7ff" {% endif %}>
                                 <i class="fa fa-calendar"></i>
                                 <span onclick="account.submit()" style="cursor:pointer">My Account</span>
                             </a>
@@ -163,14 +163,14 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Logging Out
+                                        Logging Out?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                                 style="padding:5px 20px;">No
                                         </button>
                                         <button type="button" class="btn btn-primary" style="padding:5px 20px;"
-                                                onclick="window.location.href='/PerfectParty'">Yes
+                                                onclick="window.location.href='/PerfectParty/booking'">Yes
                                         </button>
                                     </div>
                                 </div>

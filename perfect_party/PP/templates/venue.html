@@ -11,6 +11,7 @@
             <th>Price</th>
             <th>Address</th>
             <th>City</th>
+            <th>Province</th>
             <th>Country</th>
             <th>Postal Code</th>
         </tr>
@@ -228,6 +229,7 @@ $(document).ready(function() {
           {data: "Price"},
           {data: "Address"},
           {data: "City"},
+          {data: "Province"},
           {data: "Country"},
           {data: "PostalCode"}
       ],
@@ -262,7 +264,7 @@ $(document).ready(function() {
             document.getElementById('edit-name').value=row_data.VenueName;
             document.getElementById('edit-str-num').value=row_data.Street_Number;
             document.getElementById('edit-str-name').value=row_data.Street_Name;
-            document.getElementById('edit-unit').value=row_data.Unit;
+            document.getElementById('edit-unit').value=row_data.Unit_Number;
             document.getElementById('edit-postal').value=row_data.PostalCode;
             document.getElementById('edit-city').value=row_data.City;
             document.getElementById('edit-province').value=row_data.Province;
