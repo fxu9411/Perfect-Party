@@ -122,6 +122,7 @@ def get_book():
         cursor.close()
     event_id = result['event_id']
     print('event_id = ', event_id)
+
     with connection.cursor() as cursor:
         sql = "SELECT *, DATE(ordered_item.`order_date`) AS ordered_date " \
             "FROM perfect_party.ordered_item AS ordered_item " \
@@ -131,12 +132,23 @@ def get_book():
             "  ON ordered_item.`item_id`=item_option.`item_id` " \
             "LEFT JOIN perfect_party.supplier AS supplier " \
             "  ON item_option.`supplier_id`=supplier.`supplier_id` " \
-           f"WHERE ordered_item.`event_id`='{event_id}' "
+           f"WHERE ordered_item.`event_id`='{event_id}' " \
+            "ORDER BY order_date "
         cursor.execute(sql)
         items = cursor.fetchall()
         # print(items)
         cursor.close()
-    return render_template("onebook.html", onebook=True, result=result, items=items)
+    subtotal = sum([item['price'] * item['quantity'] for item in items])
+
+    with connection.cursor() as cursor:
+        sql = "SELECT * " \
+            "FROM perfect_party.item_option"
+        cursor.execute(sql)
+        options = cursor.fetchall()
+        # print(options)
+        cursor.close()
+
+    return render_template("onebook.html", onebook=True, result=result, items=items, options=options, subtotal=subtotal)
 
 
 @pages.route("/postBooking", methods=['POST'])
@@ -145,6 +157,24 @@ def get_id():
     booking_id = int(args['Id'])
     return jsonify(booking_id)
 
+@pages.route('/placeOrder', methods=['POST'])
+def place_order():
+    booking_id = request.args.get('booking_id')
+    item_id = request.form['item_id']
+    quantity = request.form['quantity']
+
+    order_date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+
+    with connection.cursor() as cursor:
+        sql = "INSERT INTO ordered_item(event_id, item_id, quantity, order_date) " \
+            "SELECT event_id, %s, %s, %s " \
+            "FROM booking " \
+           f"WHERE booking.booking_id={booking_id} "
+        cursor.execute(sql, (item_id, quantity, order_date))
+        cursor.close()
+    connection.commit()
+
+    return redirect(url_for('pages.get_book') + '?booking_id=' + booking_id)
 
 @pages.route("/venue")
 def venue():
