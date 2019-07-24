@@ -110,7 +110,7 @@ def get_book():
     print('booking_id = ', booking_id)
     with connection.cursor() as cursor:
         sql = "SELECT booking.booking_id, client.client_name, DATE(booking.booking_date) as booking_date, booking.sales_rep, " \
-              "DATE(event.event_date) as event_date, venue.venue_name, event.type, event.guest_number, event.budget " \
+              "DATE(event.event_date) as event_date, venue.venue_name, event.type, event.guest_number, event.budget, event.event_id " \
               "FROM `perfect_party`.`booking` as booking " \
               "LEFT JOIN `perfect_party`.`event` as event USING (event_id) " \
               "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id " \
@@ -118,9 +118,25 @@ def get_book():
              f"WHERE `booking_id`='{booking_id}' "
         cursor.execute(sql)
         result = cursor.fetchone()
+        # print(result)
         cursor.close()
-    print(result)
-    return render_template("onebook.html", onebook=True, result=result)
+    event_id = result['event_id']
+    print('event_id = ', event_id)
+    with connection.cursor() as cursor:
+        sql = "SELECT *, DATE(ordered_item.`order_date`) AS ordered_date " \
+            "FROM perfect_party.ordered_item AS ordered_item " \
+            "LEFT JOIN perfect_party.event AS event " \
+            "  ON ordered_item.`event_id`=event.`event_id` " \
+            "LEFT JOIN perfect_party.item_option AS item_option " \
+            "  ON ordered_item.`item_id`=item_option.`item_id` " \
+            "LEFT JOIN perfect_party.supplier AS supplier " \
+            "  ON item_option.`supplier_id`=supplier.`supplier_id` " \
+           f"WHERE ordered_item.`event_id`='{event_id}' "
+        cursor.execute(sql)
+        items = cursor.fetchall()
+        # print(items)
+        cursor.close()
+    return render_template("onebook.html", onebook=True, result=result, items=items)
 
 
 @pages.route("/postBooking", methods=['POST'])

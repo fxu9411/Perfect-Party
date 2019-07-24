@@ -76,36 +76,48 @@
       </tr>
     </thead>
     <tbody>
+      {% for item in items %}
       <tr>
         <th scope="row">1</th>
-        <td>2019-07-23</th>
-        <td>Food</td>
-        <td>Pizza</td>
-        <td>Domino's Pizza</td>
-        <td>9.99</td>
-        <td>5</td>
-        <td>49.95</td>
+        <td>{{item['order_date']}}</td>
+        <td>{{item['item_option.type']}}</td>
+        <td>{{item['name']}}</td>
+        <td>{{item['supplier.name']}}</td>
+        <td>{{item['price']}}</td>
+        <td>{{item['quantity']}}</td>
+        <td>{{item['price'] * item['quantity']}}</td>
       </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>2019-07-23</th>
-        <td>Decoration</td>
-        <td>Shiny Red Balloon</td>
-        <td>Terraria Inc.</td>
-        <td>0.54</td>
-        <td>10</td>
-        <td>5.40</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>2019-07-23</th>
-        <td>Entertainment</td>
-        <td>C418 Music</td>
-        <td>Mojang Inc.</td>
-        <td>6.99</td>
-        <td>1</td>
-        <td>6.99</td>
-      </tr>
+      {% endfor %}
+      <!-- <tr> -->
+      <!--   <th scope="row">1</th> -->
+      <!--   <td>2019-07-23</td> -->
+      <!--   <td>Food</td> -->
+      <!--   <td>Pizza</td> -->
+      <!--   <td>Domino's Pizza</td> -->
+      <!--   <td>9.99</td> -->
+      <!--   <td>5</td> -->
+      <!--   <td>49.95</td> -->
+      <!-- </tr> -->
+      <!-- <tr> -->
+      <!--   <th scope="row">2</th> -->
+      <!--   <td>2019-07-23</td> -->
+      <!--   <td>Decoration</td> -->
+      <!--   <td>Shiny Red Balloon</td> -->
+      <!--   <td>Terraria Inc.</td> -->
+      <!--   <td>0.54</td> -->
+      <!--   <td>10</td> -->
+      <!--   <td>5.40</td> -->
+      <!-- </tr> -->
+      <!-- <tr> -->
+      <!--   <th scope="row">3</th> -->
+      <!--   <td>2019-07-23</td> -->
+      <!--   <td>Entertainment</td> -->
+      <!--   <td>C418 Music</td> -->
+      <!--   <td>Mojang Inc.</td> -->
+      <!--   <td>6.99</td> -->
+      <!--   <td>1</td> -->
+      <!--   <td>6.99</td> -->
+      <!-- </tr> -->
     </tbody>
   </table>
 
