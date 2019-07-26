@@ -51,7 +51,8 @@ def get_booking():
               "FROM `perfect_party`.`booking` as booking " \
               "LEFT JOIN `perfect_party`.`event` as event USING (event_id) " \
               "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id " \
-              "LEFT JOIN `perfect_party`.`venue` as venue ON event.venue_id = venue.venue_id "
+              "LEFT JOIN `perfect_party`.`venue` as venue ON event.venue_id = venue.venue_id " \
+              "WHERE booking.is_deleted IS TRUE"
         cursor.execute(sql)
         result = cursor.fetchall()
         cursor.close()

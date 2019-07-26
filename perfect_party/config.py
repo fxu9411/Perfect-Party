@@ -37,8 +37,8 @@ PROJECT_ID = 'cs-348'
 # CloudSQL & SQLAlchemy configuration
 # Replace the following values the respective values of your Cloud SQL
 # instance.
-CLOUDSQL_USER = 'frankxu'
-CLOUDSQL_PASSWORD = 'frank.xu'
+CLOUDSQL_USER = 'root'
+CLOUDSQL_PASSWORD = '9emNE2yIw9t2wnK4'
 CLOUDSQL_DATABASE = 'perfect_party'
 # Set this value to the Cloud SQL connection name, e.g.
 #   "project:region:cloudsql-instance".
