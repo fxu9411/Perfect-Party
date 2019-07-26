@@ -52,7 +52,7 @@ def get_booking():
               "LEFT JOIN `perfect_party`.`event` as event USING (event_id) " \
               "LEFT JOIN `perfect_party`.`client` as client ON booking.client_id = client.client_id " \
               "LEFT JOIN `perfect_party`.`venue` as venue ON event.venue_id = venue.venue_id " \
-              "WHERE booking.is_deleted IS TRUE"
+              "WHERE booking.is_deleted = 0"
         cursor.execute(sql)
         result = cursor.fetchall()
         cursor.close()
@@ -143,7 +143,7 @@ def get_book():
 
     with connection.cursor() as cursor:
         sql = "SELECT * " \
-            "FROM perfect_party.item_option"
+            "FROM perfect_party.item_option WHERE is_deleted = 0"
         cursor.execute(sql)
         options = cursor.fetchall()
         # print(options)
@@ -185,7 +185,7 @@ def venue():
 @pages.route("/getVenue")
 def get_venues():
     with connection.cursor() as cursor:
-        sql = "SELECT * FROM `venue`"
+        sql = "SELECT * FROM `venue` WHERE is_deleted = 0"
         cursor.execute(sql)
         result = cursor.fetchall()
         cursor.close()
@@ -237,7 +237,8 @@ def add_venue():
 
     with connection.cursor() as cursor:
         # Create a new record
-        sql = "INSERT INTO `venue`(venue_name, street_number, street_name, unit_number, city, province, country, postal_code, price) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        sql = "INSERT INTO `venue`(venue_name, street_number, street_name, unit_number, " \
+              "city, province, country, postal_code, price) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
         cursor.execute(sql, (name, str_number, str_name, unit_number, city, province, country, postal, price))
     connection.commit()
 
@@ -276,7 +277,7 @@ def delete_venue():
     id = request.form['id']
 
     with connection.cursor() as cursor:
-        sql = "DELETE FROM `venue` WHERE venue_id = %d;" % int(id)
+        sql = "UPDATE `venue` SET is_deleted = 1 WHERE venue_id = %d;" % int(id)
         print(sql)
         cursor.execute(sql)
         connection.commit()
@@ -293,7 +294,7 @@ def client():
 @pages.route("/getClient")
 def get_client():
     with connection.cursor() as cursor:
-        sql = "SELECT * FROM `client`"
+        sql = "SELECT * FROM `client` WHERE is_deleted = 0"
         cursor.execute(sql)
         result = cursor.fetchall()
         cursor.close()
@@ -383,7 +384,7 @@ def delete_client(): \
     id = request.form['id']
 
     with connection.cursor() as cursor:
-        sql = "DELETE FROM `client` WHERE client_id = %d;" % int(id)
+        sql = "UPDATE `client` SET is_deleted = 1 WHERE client_id = %d;" % int(id)
         print(sql)
         cursor.execute(sql)
         connection.commit()
@@ -400,7 +401,7 @@ def supplier():
 @pages.route("/getSupplier")
 def get_supplier():
     with connection.cursor() as cursor:
-        sql = "SELECT * FROM `supplier`"
+        sql = "SELECT * FROM `supplier` WHERE is_deleted = 0"
         cursor.execute(sql)
         result = cursor.fetchall()
         cursor.close()
@@ -460,7 +461,7 @@ def delete_supplier():
     id = request.form['id']
 
     with connection.cursor() as cursor:
-        sql = "DELETE FROM `supplier` WHERE supplier_id = %d;" % int(id)
+        sql = "UPDATE `supplier` SET is_deleted = 1 WHERE supplier_id = %d;" % int(id)
         print(sql)
         cursor.execute(sql)
         connection.commit()
@@ -477,7 +478,8 @@ def get_item():
               "FROM `perfect_party`.`item_option` as item " \
               "LEFT JOIN `perfect_party`.`supplier` as supplier " \
               "ON item.supplier_id = supplier.supplier_id " \
-            f"WHERE item.type = '{item}'"
+             f"WHERE item.type = '{item}' AND item.is_deleted = 0"
+        print(sql)
         cursor.execute(sql)
         result = cursor.fetchall()
         cursor.close()
@@ -508,7 +510,7 @@ def add_item():
     with connection.cursor() as cursor:
         sql = "INSERT INTO `item_option` (name, price, supplier_id, type) " \
               "VALUES ({0}, {1}, {2}, {3})".format(repr(name), float(price), supplier_id, repr(item))
-        print(sql)
+        # print(sql)
         cursor.execute(sql)
         connection.commit()
         cursor.close()
@@ -518,7 +520,7 @@ def add_item():
 
 @pages.route('/editItem', methods=['POST'])
 def edit_item():
-    print(request.form)
+    # print(request.form)
     item = request.form['item']
     name = request.form['name']
     price = request.form['price']
@@ -538,13 +540,13 @@ def edit_item():
 
 @pages.route('/deleteItem', methods=['POST'])
 def delete_item():
-    print(request.form)
+    # print(request.form)
     id = request.form['id']
     item = request.form['item']
 
     with connection.cursor() as cursor:
-        sql = "DELETE FROM `item_option` WHERE item_id = %d;" % int(id)
-        print(sql)
+        sql = "UPDATE `item_option` SET is_deleted = 1 WHERE item_id = %d;" % int(id)
+        # print(sql)
         cursor.execute(sql)
         connection.commit()
         cursor.close()
@@ -556,7 +558,7 @@ def item(item):
     with connection.cursor() as cursor:
         sql = "SELECT * " \
               "FROM `supplier` " \
-            f"WHERE type='{item}'"
+             f"WHERE type='{item}' AND is_deleted = 0"
         cursor.execute(sql)
         result = cursor.fetchall()
         cursor.close()
@@ -600,7 +602,8 @@ def schema():
 def myaccount():
     account_id = request.args['account_id']
     with connection.cursor() as cursor:
-        sql = "SELECT * FROM `perfect_party`.`account` as account WHERE account_id = {0}".format(account_id)
+        sql = "SELECT * FROM `perfect_party`.`account` as account " \
+              "WHERE account_id = {0} AND is_deleted = 0".format(account_id)
         cursor.execute(sql)
         result = cursor.fetchone()
         cursor.close()
