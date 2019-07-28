@@ -17,20 +17,6 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
     if not app.testing:
         logging.basicConfig(level=logging.INFO)
 
-    '''
-    # Setup the data model.
-    with app.app_context():
-        model = get_model()
-        model.init_app(app)
-    '''
-
-    '''
-    # Register the Bookshelf CRUD blueprint.
-    from .crud import crud
-    app.register_blueprint(crud, url_prefix='/books')
-    '''
-
-
     from .pages import pages
     app.register_blueprint(pages, url_prefix='/PerfectParty')
 
