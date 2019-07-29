@@ -271,6 +271,22 @@ def edit_venue():
     return redirect(url_for('pages.venue'))
 
 
+
+@pages.route('/deleteBooking', methods=['POST'])
+def delete_booking():
+    print(request.form)
+    id = request.form['id']
+
+    with connection.cursor() as cursor:
+        sql = "UPDATE `booking` SET is_deleted = 1 WHERE booking_id = %d;" % int(id)
+        print(sql)
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
+
+    return redirect(url_for('pages.booking'))
+
+
 @pages.route('/deleteVenue', methods=['POST'])
 def delete_venue():
     print(request.form)
