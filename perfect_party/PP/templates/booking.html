@@ -153,7 +153,7 @@
           }
           else {
               $('#delete').modal('show');
-              document.getElementById('delete-id').value=row_data.ID;
+              window.location.href =  "{{ url_for('pages.delete_booking') }}?id=" + row_data.ID;
           }
       });
   } );
